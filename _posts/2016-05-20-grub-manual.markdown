@@ -4,7 +4,7 @@ title:      "Grub 手动引导"
 subtitle:   "如何在 Grub 引导失败的时候拯救你的系统"
 date:       2016-05-20 12:20:52
 author:     "Y.M. Xu"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/bg/post-2016-centos.jpg"
 catalog: true
 tags:
     - Linux
@@ -15,6 +15,7 @@ tags:
 在 linux 的初学过程中，我们可能会遇到 grub 引导失败的情况，很多人遇到这种情况的时候只能无奈的选择重装，其实如果 boot 分区还在的情况下，可以手动引导恢复。
 
 当分区表改变或/root分区被删除时开机会出现
+![grub-rescue](/img/post/2016-05-20-grub/grub-rescue.png)
 
 ```bash
 grub-rescue >

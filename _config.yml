@@ -1,6 +1,6 @@
 # Site settings
-title: Y.M. Xu Blog
-SEOTitle: 许雨蒙的博客 | Y.M. Xu Blog
+title: Y.M. Xu's Blog
+SEOTitle: 许雨蒙的博客 | Y.M. Xu's Blog
 header-img: img/home-bg.jpg
 email: yumengxu1994@icloud.com
 description: "理论物理，全栈设计 | 许雨蒙，Physicist，Web & Mobile Lover，Front-End Engineer | 这里是 @许雨蒙 的个人博客，与你一起发现更美的世界。"
@@ -84,5 +84,13 @@ friends: [
     {
         title: "Vivian 的博客",
         href: "http://vivianzhang.me"
+    },
+    {
+        title: "Aspire 的博客",
+        href: "http://pjw.io"
+    },
+    {
+        title: "SmallBird 的博客",
+        href: "http://smallbird.net"
     }
 ]

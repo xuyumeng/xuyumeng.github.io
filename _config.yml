@@ -68,7 +68,7 @@ ga_domain: yumengxu.com
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "万物皆美"
+sidebar-about-description: "给时光以生命,而不是给生命以时光"
 sidebar-avatar: /img/avatar.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 

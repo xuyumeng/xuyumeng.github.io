@@ -131,7 +131,7 @@ mccoder/tomcat             Tomcat with APR                                 0    
 最简单的使用方法是直接用 `docker run` 命令，docker 会直接下载之后运行，我们这里使用 tomcat 6.0：
 
 ```bash
-$ sudo docker run -p 8080:8080 tomcat:6.0
+$ sudo docker run -d -p 8080:8080 tomcat:6.0
 ```
 
 这个命令会下载 tomcat image 后运行 Tomcat 6.0，并将创建的 container 的8080端口暴露到宿主机器的8080端口（目前看来，container 再创建之后端口就不能更改了），这时用 `docker ps` 命令可以查看运行中的 container
@@ -189,10 +189,64 @@ Successfully built 33917c541bb5
 一般习惯的命名规则是 `域/程序`，这样方便不同的管理人员区分不同的 image，现在我们定制的 image 就创建好了，然后从定制的 image 创建实例：
 
 ```bash
-$ sudo docker run -d -p 8888:8080 xym/tomcat
+$ sudo docker run -d -e TZ=Asia/Shanghai -p 8888:8080 xym/tomcat
 ```
 
-命令中 `-d` 是让 container 在后台以 detached 模式运行，`-p 8888:8080` 指定将 container 的默认 8080 端口映射到外部 host 的 8888 端口。
+命令中 `-d` 是让 container 在后台以 detached 模式运行，`-p 8888:8080` 指定将 container 的默认 8080 端口映射到外部 host 的 8888 端口，`-e` 是设置环境变量，因为 docker 里时区默认是 UTC，所以我们需要在运行时设置环境变量，时区的名称在 Linux 中可以用 `tzselect` 来查看:
+
+```bash
+$ tzselect
+Please identify a location so that time zone rules can be set correctly.
+Please select a continent or ocean.
+ 1) Africa
+ 2) Americas
+ 3) Antarctica
+ 4) Arctic Ocean
+ 5) Asia
+ 6) Atlantic Ocean
+ 7) Australia
+ 8) Europe
+ 9) Indian Ocean
+10) Pacific Ocean
+11) none - I want to specify the time zone using the Posix TZ format.
+#? 5
+Please select a country.
+ 1) Afghanistan		  18) Israel		    35) Palestine
+ 2) Armenia		  19) Japan		    36) Philippines
+ 3) Azerbaijan		  20) Jordan		    37) Qatar
+ 4) Bahrain		  21) Kazakhstan	    38) Russia
+ 5) Bangladesh		  22) Korea (North)	    39) Saudi Arabia
+ 6) Bhutan		  23) Korea (South)	    40) Singapore
+ 7) Brunei		  24) Kuwait		    41) Sri Lanka
+ 8) Cambodia		  25) Kyrgyzstan	    42) Syria
+ 9) China		  26) Laos		    43) Taiwan
+10) Cyprus		  27) Lebanon		    44) Tajikistan
+11) East Timor		  28) Macau		    45) Thailand
+12) Georgia		  29) Malaysia		    46) Turkmenistan
+13) Hong Kong		  30) Mongolia		    47) United Arab Emirates
+14) India		  31) Myanmar (Burma)	    48) Uzbekistan
+15) Indonesia		  32) Nepal		    49) Vietnam
+16) Iran		  33) Oman		    50) Yemen
+17) Iraq		  34) Pakistan
+#? 9
+Please select one of the following time zone regions.
+1) Beijing Time
+2) Xinjiang Time
+#? 1
+
+The following information has been given:
+
+	China
+	Beijing Time
+
+Therefore TZ='Asia/Shanghai' will be used.
+Local time is now:	Thu Jun 16 11:20:47 CST 2016.
+Universal Time is now:	Thu Jun 16 03:20:47 UTC 2016.
+Is the above information OK?
+1) Yes
+2) No
+#? ^C
+```
 
 在浏览器中打开`http://your-server-ip:8888`测试
 
@@ -203,7 +257,7 @@ $ sudo docker run -d -p 8888:8080 xym/tomcat
 我们用同样的方法再开启第二个 docker，运行在 8889 端口：
 
 ```bash
-$ sudo docker run -d -p 8889:8080 xym/tomcat
+$ sudo docker run -d -e TZ=Asia/Shanghai -p 8889:8080 xym/tomcat
 ```
 
 查看一下运行状态：
@@ -231,7 +285,7 @@ $ sudo docker start container_id
 最后还需要一个 container 单独运行管理后台：
 
 ```bash
-$ sudo docker run -d -p 8890:8080 xym/tomcat
+$ sudo docker run -d -e TZ=Asia/Shanghai -p 8890:8080 xym/tomcat
 ```
 
 现在我们分别在 8888、8889 和 8890 三个端口运行了独立的 tomcat 应用，下一步就是需要配置 nginx 做负载均衡

@@ -4,7 +4,7 @@ title:      "Nginx + Docker 实现单点负载均衡"
 subtitle:   "如何在预算有限的情况下实现不停机更新并减少宕机概率"
 date:       2016-06-15 23:05:52 +08:00
 author:     "Y.M. Xu"
-header-img: "img/bg/post-2016-fractal.jpg"
+header-img: "img/bg/railway-station-1363771_1280.jpg"
 catalog: true
 tags:
     - 服务器
@@ -19,6 +19,8 @@ tags:
 最近在给一个电子商务平台做服务器维护，因为预算有限，只能支撑一台服务器，负责做后台的工程师用的是 Java + Tomcat，在运维过程中，经常出现更新程序之后重启应用失败，而重启 Tomcat 一般都会出现无法访问的问题，需要多次重启甚至是重启服务器才可以解决问题，每次服务器都要 down 几分钟甚至十几分钟，这对电子商务网站来说是很严重的问题。
 
 因为我主要用的是 Rails，对 Tomcat 不熟悉，所以并不知道是哪里导致的问题，虽然建议使用两台服务器负载均衡来解决单点故障，但是因为资金问题没有被采纳，最近再次看到了 Docker，突然想到为什么不在一台服务器里虚拟两个 Docker，然后用 Nginx 来做负载均衡呢？然后就开始了尝试。
+
+![tomcat](/img/post/2016-06-15-docker/nginx-docker.png)
 
 > 所用系统：CentOS 7
 

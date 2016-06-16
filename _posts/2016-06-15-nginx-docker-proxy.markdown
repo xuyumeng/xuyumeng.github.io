@@ -137,7 +137,7 @@ $ sudo docker run -p 8080:8080 tomcat:6.0
 ```bash
 $ docker ps
 CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS              PORTS                    NAMES
-e05fa71df20d        tomcat         "catalina.sh run"   3 days ago          Up 3 days           0.0.0.0:8080->8080/tcp   nauseous_liskov
+e05fa71df20d        tomcat                 "catalina.sh run"   3 days ago          Up 3 days           0.0.0.0:8080->8080/tcp   nauseous_liskov
 ```
 
 这里我们看到的信息有 container 的 ID、image、创建和运行时间、端口映射以及别名，这个别名是自动生成的，当然也可以自己制定。
@@ -184,14 +184,53 @@ Step 3 : ADD tomcat-users.xml /usr/local/tomcat/conf/
 Successfully built 33917c541bb5
 ```
 
-一般习惯的命名规则是 `域/程序`，这样方便不同的管理人员区分不同的 image，这样，我们定制的 image 就创建好了，然后从定制的 image 创建实例：
+一般习惯的命名规则是 `域/程序`，这样方便不同的管理人员区分不同的 image，现在我们定制的 image 就创建好了，然后从定制的 image 创建实例：
 
 ```bash
-$ sudo docker run -p 8080:8080 xym/tomcat
+$ sudo docker run -d -p 8888:8080 xym/tomcat
 ```
 
-> 未完待续。。。
+命令中 `-d` 是让 container 在后台以 detached 模式运行，`-p 8888:8080` 指定将 container 的默认 8080 端口映射到外部 host 的 8888 端口。
+
+在浏览器中打开`http://your-server-ip:8000`测试
+
+![tomcat](/img/post/2016-06-15-docker/tomcat-admin.jpg)
+
+现在，一个 container 就运行起来了。
+
+我们用同样的方法再开启第二个 docker，运行在 8889 端口：
+
+```bash
+$ sudo docker run -d -p 8889:8080 xym/tomcat
+```
+
+查看一下运行状态：
+```bash
+$ sudo docker ps
+CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS              PORTS                    NAMES
+e05fa71df20d        xym/tomcat             "catalina.sh run"   3 days ago          Up 3 days           0.0.0.0:8889->8080/tcp   nauseous_liskov
+cc2b27d31432        xym/tomcat             "catalina.sh run"   3 days ago          Up 3 days           0.0.0.0:8888->8080/tcp   determined_heisenberg
+```
+
+停止 docker 运行用
+
+```bash
+$ sudo docker stop container_id # contain_id 可以在 docker ps 中查看
+```
+
+查看包括未在运行中的所有 container 使用 `-a` 参数，然后用 `docker start` 命令启动
+
+```bash
+$ sudo docker ps -a
+$ sudo docker start container_id
+```
+
+现在我们分别在 8888 和 8889 两个端口运行了独立的 tomcat，下一步就是需要用 nginx 做负载均衡
+
 ## Nginx 配置负载均衡
+
+
+
 
 ## 总结与问题
 

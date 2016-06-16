@@ -445,6 +445,8 @@ $ /opt/nginx/sbin/nginx
 
 这样以后需要更新的时候，先对一个 container 的 tomcat 应用进行更新，然后在那个 container 的端口进行测试，没有问题的时候再更新另外一个 container 并进行测试。这样可以保证在一个 container 更新失败的时候另一个 container 还能继续提供服务。因为 nginx 会在一次请求失败的时候不再向这个 container 转发请求，所有是可以在不更改 nginx 的情况下操作的，但是如果想谨慎些，可以先在 `upstream` 中将要操作的 container 设置为 `down`，然后测试没有问题后再挂上去。
 
+__6月16日补充__：在最近的一次问题修复中，docker + nginx 很好的体现出了平滑升级，之前因为没有意识到 docker 时区的问题，所以需要重新创建 container（这个错误已在上文中更正），于是先在 8881 和 8882 端口创建了两个更正时区的 container，然后在这两个 container 中上传并测试了 tomcat 程序，确认无误后，在 `nginx.conf` 中将 `upstream` 配置里的端口改为 8881 和 8882，然后`/opt/nginx/sbin/nginx -s reload`重启 nginx，立即完成的更正，用户没有任何感觉。最后用 `docker stop` 和 `docker rm` 命令删除旧的 container。
+
 因为我在 nginx 和 docker 方面都是初学者（nginx 虽然用过很多，但是都是用的默认配置作为静态服务器或 Rails 的服务器），在优化方面还有很大空间可以提升，另外如果配置有问题欢迎邮件或评论指正😊
 
 >以上操作除非说明都是在 centos 7 中进行过实际测试。

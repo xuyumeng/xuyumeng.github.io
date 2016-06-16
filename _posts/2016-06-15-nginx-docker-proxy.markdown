@@ -192,7 +192,7 @@ $ sudo docker run -d -p 8888:8080 xym/tomcat
 
 命令中 `-d` 是让 container 在后台以 detached 模式运行，`-p 8888:8080` 指定将 container 的默认 8080 端口映射到外部 host 的 8888 端口。
 
-在浏览器中打开`http://your-server-ip:8000`测试
+在浏览器中打开`http://your-server-ip:8888`测试
 
 ![tomcat](/img/post/2016-06-15-docker/tomcat-admin.jpg)
 
@@ -226,14 +226,172 @@ $ sudo docker ps -a
 $ sudo docker start container_id
 ```
 
-现在我们分别在 8888 和 8889 两个端口运行了独立的 tomcat，下一步就是需要用 nginx 做负载均衡
+最后还需要一个 container 单独运行管理后台：
+
+```bash
+$ sudo docker run -d -p 8890:8080 xym/tomcat
+```
+
+现在我们分别在 8888、8889 和 8890 三个端口运行了独立的 tomcat 应用，下一步就是需要配置 nginx 做负载均衡
 
 ## Nginx 配置负载均衡
 
+首先，需要将 8888 端口和 8889 端口做负载均衡，并且反向代理到 80 端口.
+
+配置 upstream，两个服务器的权重可以通过`weight`来配置，这里因为我们是单个服务器，不存在性能不均匀的情况，故设置为 1，也可以不设置。`max_fails` 可以设置出现多少次错误才停止转发到该服务器，而 fail_timeout 是停止的时间，超过这个时间会再次发起链接尝试。如果需要让某个 container 不在参与负载均衡进行单独升级或测试，将后面的参数改成 `down`就可以:
+
+```config
+upstream app {
+    #least_conn;
+    server localhost:8888 max_fails=1 fail_timeout=15s weight=1;
+    server localhost:8889 max_fails=1 fail_timeout=15s weight=1;
+    #server localhost:8889 down;
+}
+```
+
+然后在 server 中使用`proxy_pass`设置反向代理，这里的配置会将 http://your-domain/shop 里的所有请求转发到 http://app/shop/，这里的 app 是上面 upstream 设置的两个负载均衡 container 的地址。这里我们还设置的很多 header 转发的信息，其中一个比较关键的是 `proxy_set_header Host $host;`，因为 tomcat 在渲染模版的时候会将 js、css、图片等资源替换成绝对地址，如果不添加的话，`Host`将会是 upstream 中的 `localhost:port` :
 
 
 
-## 总结与问题
+```config
+server {
+    listen       80;
+    server_name  your-domain.com;
+
+    location ^~ /shop/ {
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_pass http://app/shop/;
+    }
+}
+```
+
+然后对管理后台也进行了反向代理:
+
+```config
+location ^~ /admin/ {
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Server $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $host;
+    proxy_pass http://localhost:8890/admin/;
+}
+
+```
+
+因为之前更换这个一次域名，而之前推送的很多折扣信息里的域名太多没办法全部更改，于是用 nginx 对其进行了 redirect :
+
+```config
+server {
+    listen 80;
+    server_name your-old-domain.com;
+
+    rewrite ^/(.*) http://your-domain.com/$1 redirect ;
+}
+```
+
+至此配置文件就写好了，这是完整的配置文件：
+
+
+```config
+#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+http {
+
+    upstream app1 {
+        #least_conn;
+        server localhost:8888 max_fails=1  fail_timeout=15s;
+        server localhost:8889 max_fails=1  fail_timeout=15s;
+        #server localhost:8889 down;
+    }
+
+    log_format main  '$remote_addr - $remote_user[$time_local] "$request" '
+                      '$status $body_bytes_sent"$http_referer" '
+                     '"$http_user_agent" "$http_x_forwarded_for"';
+    access_log logs/access.log  main;
+
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+
+    keepalive_timeout  65;
+
+    gzip on;
+    gzip_min_length 1k;
+    gzip_buffers    4 16k;
+    gzip_http_version 1.0;
+    gzip_comp_level 2;
+    gzip_types text/plain application/x-javascripttext/css application/xml;
+    gzip_vary on;
+
+    server {
+        listen       80;
+        server_name  your-domain.com;
+
+        location ^~ /admin/ {
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header X-Forwarded-Server $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $host:$server_port;
+            proxy_pass http://localhost:8890/admin/;
+        }
+
+        location ^~ /shop/ {
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header X-Forwarded-Server $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $host;
+            proxy_pass http://app1/shop/;
+        }
+
+    }
+
+    server {
+        listen 80;
+        server_name your-domain.info;
+
+        rewrite ^/(.*) http://your-domain.com/$1 redirect ;
+    }
+}
+
+```
+
+现在启动 nginx：
+
+```bash
+$ /opt/nginx/sbin/nginx
+```
+
+测试了一下，大功告成了！
+
+
+## 总结
+
+这次单个服务器用 nginx + tomcat 实现负载均衡虽然对很多有多个服务器的网站来说没有意义，但是对于预算有限只能开启一个服务器的情景还是非常有用的。
+
+这样以后需要更新的时候，先对一个 container 的 tomcat 应用进行更新，然后在那个 container 的端口进行测试，没有问题的时候再更新另外一个 container 并进行测试。这样可以保证在一个 container 更新失败的时候另一个 container 还能继续提供服务。因为 nginx 会在一次请求失败的时候不再向这个 container 转发请求，所有是可以在不更改 nginx 的情况下操作的，但是如果想谨慎些，可以先在 `upstream` 中将要操作的 container 设置为 `down`，然后测试没有问题后再挂上去。
+
+因为我在 nginx 和 docker 方面都是初学者（nginx 虽然用过很多，但是都是用的默认配置作为静态服务器或 Rails 的服务器），在优化方面还有很大空间可以提升，另外如果配置有问题欢迎邮件或评论指正😊
+
+>以上操作除非说明都是在 centos 7 中进行过实际测试。
 
 
 

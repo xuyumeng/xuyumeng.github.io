@@ -205,6 +205,7 @@ $ sudo docker run -d -p 8889:8080 xym/tomcat
 ```
 
 查看一下运行状态：
+
 ```bash
 $ sudo docker ps
 CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS              PORTS                    NAMES

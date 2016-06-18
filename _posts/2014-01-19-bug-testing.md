@@ -1,15 +1,15 @@
 ---
 layout:     post
 title:      "Bug多——是系统测试没做好吗？"
-subtitle:   ""
+subtitle:   "每个阶段一次把事情做好才是关键"
 date:       2014-01-18 16:08:00 +08:00
 author:     "Sun Jianjiao <jianjiaosun@163.com>"
 header-img: "img/bg/railway-station-1363771_1280.jpg"
 catalog: true
 tags:
-	- Bug
-	- 测试
-	- 项目管理
+    - Bug
+    - 测试
+    - 项目管理
 
 ---
 

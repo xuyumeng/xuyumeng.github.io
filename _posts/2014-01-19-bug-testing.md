@@ -2,7 +2,7 @@
 layout:     post
 title:      "Bug多——是系统测试没做好吗？"
 subtitle:   ""
-date:       2014-01-19 16:08:00 +08:00
+date:       2014-01-18 16:08:00 +08:00
 author:     "Sun Jianjiao <jianjiaosun@163.com>"
 header-img: "img/bg/railway-station-1363771_1280.jpg"
 catalog: true

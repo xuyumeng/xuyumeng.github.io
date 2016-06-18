@@ -2,7 +2,7 @@
 layout:     post
 title:      "Bug多——是系统测试没做好吗？"
 subtitle:   ""
-date:       2014-01-19 16:08:00 +08:00
+date:       2014-01-18 16:08:00 +08:00
 author:     "Sun Jianjiao <jianjiaosun@163.com>"
 header-img: "img/bg/railway-station-1363771_1280.jpg"
 catalog: true
@@ -12,6 +12,7 @@ tags:
 	- 项目管理
 
 ---
+
 很多项目都会遇到这种情况：
 系统测试Bug收敛很慢， 每一轮系统测试都会发现新的问题，让整个团队士气低落， 对质量没信心
 验收测试Bug很多，验收过程中，整个项目组都在疲于应付测试发现的问题。

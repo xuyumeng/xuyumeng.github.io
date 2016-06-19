@@ -1,10 +1,10 @@
 # Site settings
 title: unanao's Blog
-SEOTitle: 孙建蛟的博客 | Sun Jianjiao's Blog | unanao's blog
+SEOTitle: unanao's blog | Sun Jianjiao's Blog | 孙建蛟的博客
 header-img: img/home-bg.jpg
 email: jianjiaosun@163.com
-description: "理论物理，全栈设计 | 许雨蒙，Physicist，Web & Mobile Lover，Front-End Engineer | 这里是 @许雨蒙 的个人博客，与你一起发现更美的世界。"
-keyword: "理论物理,全栈设计"
+description: "软件开发 | 软件项目管理 | 这里是 @unanao 的个人博客，与你一起发现更美的世界。"
+keyword: "软件开发和流程"
 url: "http://www.unanao.cn"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 

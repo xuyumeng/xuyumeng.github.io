@@ -83,6 +83,10 @@ featured-condition-size: 1              # A tag will be featured if the size of 
 # Friends
 friends: [
     {
+        title: "我的163博客",
+        href: "http://jianjiaosun.blog.163.com"
+    },
+    {
         title: "Vivian 的博客",
         href: "http://vivianzhang.me"
     },

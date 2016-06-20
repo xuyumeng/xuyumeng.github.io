@@ -40,6 +40,7 @@ tags:
 因为对实现的内容理解不深刻
 
 # 二 缺陷在各阶段分布对软件质量的影响
+
 ## 2.1 各阶段缺陷分布统计图
 ![Bug management](/img/post/2016-6-18-bug-test/bug-management.png)
 Level 1 ~ level3 表明开发质量越来越好。

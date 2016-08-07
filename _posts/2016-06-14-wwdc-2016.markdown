@@ -21,7 +21,7 @@ tags:
 
 ![wwdc-begining](/img/post/2016-06-14-wwdc/wwdc-begining-01.png)
 
-App Store 200 万个应用，还是老样子，来一发密集恐惧症 
+App Store 200 万个应用，还是老样子，来一发密集恐惧症
 
 ![wwdc-begining](/img/post/2016-06-14-wwdc/wwdc-begining-02.png)
 
@@ -102,11 +102,7 @@ Apple Pay 应该是内置 Safari 的功能，网站支付页面可以支持 Appl
 
 ## 4. iOS 10
 
+### 4.1 User Expirence
+
+
 >太晚了，有空再写
-
-
-
-
-
-
-

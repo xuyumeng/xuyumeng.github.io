@@ -72,4 +72,4 @@ feynMP/feynMF 提供了完整的费曼图线条类型，可以使用 `Name` 中�
 ![line style](/img/post/2016-11-16/line-style.png)
 
 
-> 文中代码可正常编译，本文介绍比较简略，只作为引，有兴趣和需要的可以参考 [官方文档](http://www.pd.infn.it/TeX/doc/latex/feynmf/manual.pdf)，或者在 [stackexchange](http://tex.stackexchange.com) 搜索问答，更多详细内容请参考文档（英文）
+> 文中代码可正常编译，本文介绍比较简略，只作为引，等以后用的时候我会再补充进来。有兴趣进一步研究的可以参考 [官方文档](http://www.pd.infn.it/TeX/doc/latex/feynmf/manual.pdf)，或者在 [stackexchange](http://tex.stackexchange.com) 搜索问答，更多详细内容请参考文档（英文）

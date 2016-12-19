@@ -107,8 +107,6 @@ This is a stupid example of |.
 
 Note that an active character needs to be directly followed by a definition, otherwise the compilation will fail.
 
-
-
 #### 2.2 例子
 
 #### 2.3 \makeatletter 和 \makeatother

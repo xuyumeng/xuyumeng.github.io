@@ -7,7 +7,7 @@ author:     "Y.M. Xu"
 header-img: "img/bg/post-2016-lake-wire.png"
 catalog: true
 tags:
-	- Node.js
+    - Node.js
     - Javascript
     - ES6
 

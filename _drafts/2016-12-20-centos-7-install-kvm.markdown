@@ -7,7 +7,7 @@ author:     "Y.M. Xu"
 header-img: "img/bg/post-2016-lake-wire.png"
 catalog: true
 tags:
-	- Linux
+    - Linux
     - CentOS
     - Virtulization
     - KVM

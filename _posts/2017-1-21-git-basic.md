@@ -8,12 +8,10 @@ header-img: "img/bg/railway-station-1363771_1280.jpg"
 catalog: true
 tags:
     - Git
-    - 命令
-    - 客户端
+    - git命令
+    - git客户端
 
 ---
-
-
 
 
 # 简介
@@ -92,11 +90,15 @@ tags:
 经常会到好多资料上写了git push -u, 这个-u主要用于pull, 可以少写点参数，如果使用git pull origin $branch-name, 这个-u没有用。
 
 ## 回退
-### 恢复到某次commit-id的状态
+
+恢复到某次commit-id的状态:
+
 	git reset $commit-id --hard
-### 撤销工作区的修改：
+撤销工作区的修改：
+
 	git checkout $file
-### 撤销某次提交
+撤销某次提交:  
+
 	git revert $commit-id
 
 ## 查看差异
@@ -106,7 +108,8 @@ tags:
 	git show $commit-id
 
 ## 日志
-git log列出本分提交的日志:
+git log 列出本分提交的日志:
+
 	$ git log
 	commit 46aecf1b2c56db30c35ba1cb82ce7d8a7e938727
 	Author: unanao <jianjiaosun@126.com>
@@ -156,6 +159,8 @@ git reflog几乎可以找回所有删除的内容
 	
 	    init
 
+## Intellij IDE的Local history
+如果发现代码不对， 而且代码没有进行commit, 还可以通过Intellij的local history找回代码。 
 
 
 # git 分支

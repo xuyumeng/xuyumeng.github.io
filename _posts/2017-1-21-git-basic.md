@@ -1,3 +1,21 @@
+---
+layout:     post
+title:      "通过Git提高开发质量和效率 (二)"  
+subtitle:   "Git 使用"
+date:       2017-01-20 16:08:00 +08:00
+author:     "Sun Jianjiao <jianjiaosun@163.com>"
+header-img: "img/bg/railway-station-1363771_1280.jpg"
+catalog: true
+tags:
+    - Git
+    - 进本命令
+    - 客户端
+
+---
+
+
+
+
 # 简介
 ![three steps](/img/post/git/four_stages.png)  
 
@@ -243,6 +261,24 @@ git reflog几乎可以找回所有删除的内容
 ### 清除远程已经删除的本地分支
 	git remote prune origin
 
+# git 客户端
+## 命令行客户端
+* [git for windows](https://git-for-windows.github.io/), 下载慢可以直接在360, 腾讯管家等搜索git，安装即可。
+  git for windows也有图形界面。
+  
+  在对应的项目目录下， 右键，选择："git bash here",  可以省着使用cd 进行切换。
+* Linux, apt-get/yum 直接install 就好了。
 
 
+
+## SourceTree
+在360上直接搜sourcetree安装接可以了， 支持mac和windows。 估计使用linux的人不会使用图形化界面的工具。
+使用SourceTree因为TortoiseGit, 需要单独要装git, 搞一个ssh key还要配置putty，实在太不人性化了。
+
+Source设置SSH Key容易， 而且还自带了内置的git。
+
+如果已经有ssh key，导入方法如下：
+“工具”->"选项":
+
+![three steps](/img/post/git/sourcetree-ssh.png)
 

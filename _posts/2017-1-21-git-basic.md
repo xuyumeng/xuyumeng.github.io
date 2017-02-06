@@ -164,12 +164,18 @@ git reflog几乎可以找回所有删除的内容
 
 
 ## 从Git历史中删除文件
+
+### branch-filter
 不小心把一个不该加入版本管理的文件加进去了，有时候这个文件很大，也许我们整个版本库才几百K，但加进去这个没用的文件却有好几百M，不想因为这么个破烂东西把整个版本库整个硕大无比，以后维护备份都不方便；还有时候是不小心把一个敏感文件 加进去了，比如里面写了信用卡密码的文本文件。
 这时候我们希望能把它从版本库中永久删除不留痕迹，不仅要让它在版本历史里看不出来，还要把它占用的空间也释放出来。
 
 	git filter-branch --tree-filter 'rm -f filename' HEAD
 [更多详细信息](https://git-scm.com/docs/git-filter-branch)
 
+
+### bfg
+	$ bfg --delete-files id_{dsa,rsa}  my-repo.git
+[详细使用文档](https://rtyley.github.io/bfg-repo-cleaner/)
 
 # git 分支
 

@@ -75,37 +75,36 @@ tags:
 
 	git clone git@192.168.200.128:sunjj/git-example.git
 
-## 它会把工作时的所有变化提交到暂存区，包括文件内容修改(modified)以及新文件(new)，但不包括被删除的文件
+## 查看差异  
+	git diff
+修改代码后， 执行这个命令，review代码后，再add和commit是一个好习惯。
+
+
+## 把工作区的所有变化提交到暂存区
+包括文件内容修改(modified)以及新文件(new)，但不包括被删除的文件  
+
 	git add $file-name/$dir-name
 
 ## 删除文件和目录
 	git rm $file-name
 	git rm -r $dir-name
 
+## 重命名  
+	git mv $old-name $new-name
+
 ## 提交当前暂存区的修改内容
-	git commit -m "add README"
+	git commit <-m "comment">
+
+## 提交所有已经修改和删除文件  
+
+	git comm -a <-m "comment">
+不包括新增文件
 
 ## 提交修改到远程主机
 	git push origin $branch-name
+
 经常会到好多资料上写了git push -u, 这个-u主要用于pull, 可以少写点参数，如果使用git pull origin $branch-name, 这个-u没有用。
 
-## 回退
-
-恢复到某次commit-id的状态:
-
-	git reset $commit-id --hard
-撤销工作区的修改：
-
-	git checkout $file
-撤销某次提交:  
-
-	git revert $commit-id
-
-## 查看差异
-	git diff 
-
-## 产看某次提交的内容
-	git show $commit-id
 
 ## 日志
 git log 列出本分提交的日志:
@@ -158,6 +157,23 @@ git reflog几乎可以找回所有删除的内容
 	Date:   Thu Jan 19 16:37:22 2017 +0800
 	
 	    init
+
+## 回退
+
+恢复到某次commit-id的状态:  
+
+	git reset $commit-id --hard
+撤销工作区的修改：  
+
+	git checkout $file
+撤销某次提交:    
+
+	git revert $commit-id
+
+
+## 查看某次提交的内容
+	git show $commit-id
+
 
 ## Intellij IDE的Local history
 如果发现代码不对， 而且代码没有进行commit, 还可以通过Intellij的local history找回代码。 

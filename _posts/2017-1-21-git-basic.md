@@ -163,9 +163,11 @@ git reflog几乎可以找回所有删除的内容
 恢复到某次commit-id的状态:  
 
 	git reset $commit-id --hard
+
 撤销工作区的修改：  
 
 	git checkout $file
+
 撤销某次提交:    
 
 	git revert $commit-id

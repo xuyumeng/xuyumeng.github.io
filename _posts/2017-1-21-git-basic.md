@@ -300,6 +300,14 @@ git reflog几乎可以找回所有删除的内容
 ### 清除远程已经删除的本地分支
 	git remote prune origin
 
+## 代码合并
+### 合并某次提交 
+例如对于已经发布的产品分支， 只需要合入某个bug修改。 可以使用git cherry-pick命令， 相当于只合入某个补丁。  
+切换到对应需要的分支， 执行cherry-pick命令:
+
+    git checkout <branch name>
+    git cherry-pick <commit id>
+
 # git 客户端
 ## 命令行客户端
 * [git for windows](https://git-for-windows.github.io/), 下载慢可以直接在360, 腾讯管家等搜索git，安装即可。

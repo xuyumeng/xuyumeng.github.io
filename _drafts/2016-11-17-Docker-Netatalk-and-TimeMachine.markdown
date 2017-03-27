@@ -15,13 +15,13 @@ tags:
 
 ``` bash
 docker run --detach \
+    --name "afp" \
+    --hostname "timemachine" \
 	--volume /var/timemachine/Share:/media/share \
 	--volume /var/timemachine/TimeMachine:/media/timemachine \
     --net "host" \
     --env AFP_USER=$(name) \
     --env AFP_PASSWORD=$(password) \
-    --env AFP_UID=$(id -u) \
-    --env AFP_GID=$(id -g) \
     --publish 548:548 \
     cptactionhank/netatalk:latest
 ```

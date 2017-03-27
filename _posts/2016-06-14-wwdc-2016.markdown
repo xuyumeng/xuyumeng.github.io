@@ -44,7 +44,7 @@ App Store 200 万个应用，还是老样子，来一发密集恐惧症
 ![wwdc-tvos](/img/post/2016-06-14-wwdc/wwdc-tvos-01.png)
 
 
-## 3. OSX…… 哦不,是 macOS
+## 3. OSX…… 哦不，是 macOS
 
 居然改名了，居然改名了，居然改名了……用了这么多年的名字突然就改了，有点……懵，不过虽然 OSX 变成了 macOS，但是版本名还是保留了之前的习惯，选择了苹果总部加州的某我没找到中文名的地名 `Sierra` （不过不觉得这个名字有点……@[Sierra Entertainment](http://www.sierra.com)）
 

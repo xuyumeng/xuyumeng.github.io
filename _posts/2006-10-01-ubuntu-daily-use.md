@@ -4,7 +4,7 @@ title:      "Ubuntu 日常使用"
 subtitle:   "常用软件和问题解决"
 date:       2011-01-18 16:08:00 +08:00
 author:     "Sun Jianjiao <jianjiaosun@163.com>"
-header-img: "/img/bg/default-bg.jpg"
+header-img: "img/bg/default-bg.jpg"
 catalog: true
 tags:
     - Ubuntu

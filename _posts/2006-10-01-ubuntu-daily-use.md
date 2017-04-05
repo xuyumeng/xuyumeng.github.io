@@ -4,7 +4,7 @@ title:      "Ubuntu 日常使用"
 subtitle:   "常用软件和问题解决"
 date:       2011-01-18 16:08:00 +08:00
 author:     "Sun Jianjiao <jianjiaosun@163.com>"
-header-img: "img/bg/defualt-bg.jpg"
+header-img: "/img/bg/default-bg.jpg"
 catalog: true
 tags:
     - Ubuntu
@@ -19,7 +19,7 @@ tags:
 
 但是使用过程中会遇到无法输入中文的问题——可以呼出搜狗输入法界面, 但是候选词列表不显示中文，　如下图：
 
-![sogou pinin no chinese display](img/ubuntu-daily-use/sogou-can-not--inpu-chinese.png)
+![sogou pinin no chinese display](/img//post/ubuntu-daily-use/sogou-can-not--input-chinese.png)
 
  解决方法，　删除Sogou输入法的配置文件：
 

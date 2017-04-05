@@ -1,3 +1,19 @@
+---
+layout:     post
+title:      "Ubuntu 日常使用"  
+subtitle:   "常用软件和问题解决"
+date:       2011-01-18 16:08:00 +08:00
+author:     "Sun Jianjiao <jianjiaosun@163.com>"
+header-img: "img/bg/defualt-bg.jpg"
+catalog: true
+tags:
+    - Ubuntu
+    - linux
+    - 桌面
+    - 日常使用
+
+---
+
 # 搜狗中文输入法无法输入中文
 目前最好用的中文输入法就是搜狗输入法了——[http://pinyin.sogou.com/linux/](http://pinyin.sogou.com/linux/)
 

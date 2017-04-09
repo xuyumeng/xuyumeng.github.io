@@ -16,7 +16,7 @@ tags:
 
 # 文本编辑器
 
-Atom是由github开发的开源文本编辑器，跨平台，支持插件扩展... ...。　对于我最重要的用途是使用Atom作为Markdown的编辑器。
+**Atom** 是由github开发的开源文本编辑器，跨平台，支持插件扩展... ...。　对于我最重要的用途是使用Atom作为Markdown的编辑器。
 
 **1. 下载地址**
 [https://www.atom.io/](https://www.atom.io/)
@@ -35,7 +35,7 @@ Atom是由github开发的开源文本编辑器，跨平台，支持插件扩展.
 在预览的页面，鼠标右键->选择 *“Save As HTML...”* 进行导出。
 
 # 文档格式转换
-Pandoc是一个标记语言转换工具，可实现不同标记语言间的格式转换，以命令行形式实现与用户的交互，并且支持多种操作系统。
+**Pandoc** 是一个标记语言转换工具，可实现不同标记语言间的格式转换，以命令行形式实现与用户的交互，并且支持多种操作系统。
 
 1. 安装pandoc  
 ```
@@ -59,7 +59,8 @@ pandoc -S -f markdown -t html  <input_file> -o <output_file>
 官方文档: [http://pandoc.org/demos.html](http://pandoc.org/demos.html)
 
 # 中文输入法
-1. 目前Linux最好用的中文输入法就是搜狗输入法了
+**搜狗输入法** 目前是Linux上最好用的中文输入法了。
+1. 下载地址  
 [http://pinyin.sogou.com/linux/](http://pinyin.sogou.com/linux/)
 
 2. 无法输入中文的问题  

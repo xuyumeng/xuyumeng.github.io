@@ -1,4 +1,5 @@
 示例代码:
+[源代码地址](https://github.com/unanao/unanao.github.io/tree/master/examples/2010/linux-c-compile-procedure)
 
 ```
 #include <stdio.h>

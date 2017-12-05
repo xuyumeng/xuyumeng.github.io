@@ -113,15 +113,15 @@ git log 列出本分提交的日志:
 	commit 46aecf1b2c56db30c35ba1cb82ce7d8a7e938727
 	Author: unanao <jianjiaosun@126.com>
 	Date:   Thu Jan 19 16:38:12 2017 +0800
-	
+
 	    yes
-	
+
 	commit 0c944508c6e5787984f8c0cc6f36eb09c26f60f2
 	Author: unanao <jianjiaosun@126.com>
 	Date:   Thu Jan 19 16:37:22 2017 +0800
-	
+
 	    init
- 
+
 git reset 回退到某次提交：
 
 	$ git reset 0c944508c6e5787984f8c0cc6f36eb09c26f60f2 --hard
@@ -129,7 +129,7 @@ git reset 回退到某次提交：
 	commit 0c944508c6e5787984f8c0cc6f36eb09c26f60f2
 	Author: unanao <jianjiaosun@126.com>
 	Date:   Thu Jan 19 16:37:22 2017 +0800
-	
+
 	    init
 
 
@@ -149,13 +149,13 @@ git reflog几乎可以找回所有删除的内容
 	commit 46aecf1b2c56db30c35ba1cb82ce7d8a7e938727
 	Author: unanao <jianjiaosun@126.com>
 	Date:   Thu Jan 19 16:38:12 2017 +0800
-	
+
 	    yes
-	
+
 	commit 0c944508c6e5787984f8c0cc6f36eb09c26f60f2
 	Author: unanao <jianjiaosun@126.com>
 	Date:   Thu Jan 19 16:37:22 2017 +0800
-	
+
 	    init
 
 ## 回退
@@ -178,7 +178,7 @@ git reflog几乎可以找回所有删除的内容
 
 
 ## Intellij IDE的Local history
-如果发现代码不对， 而且代码没有进行commit, 还可以通过Intellij的local history找回代码。 
+如果发现代码不对， 而且代码没有进行commit, 还可以通过Intellij的local history找回代码。
 
 
 ## 从Git历史中删除文件
@@ -201,14 +201,14 @@ git reflog几乎可以找回所有删除的内容
 
 ## 分支创建和切换
 创建名字为*feature*的分支：
-  
+
 	git branch feature  
 
 切换到*feature*分支:  
 
 	git checkout feature  
 
-创建并切换分支，如分支名字为*dev*： 
+创建并切换分支，如分支名字为*dev*：
 
 	$ git checkout -b dev
 	Switched to a new branch 'dev'
@@ -269,7 +269,7 @@ git reflog几乎可以找回所有删除的内容
 	$ git checkout dev
 	Branch dev set up to track remote branch dev from origin.
 	Switched to a new branch 'dev'
-	
+
 	unanao@DESKTOP-FSBVPHM MINGW64 /f/code/git-example (dev)
 	$ git branch
 	* dev
@@ -295,24 +295,37 @@ git reflog几乎可以找回所有删除的内容
 ### 分支重命名
 如果newbranch名字分支已经存在，则需要使用-M强制重命名，否则，使用-m进行重命名。  
 
-	git branch -m | -M oldbranch newbranch 
+	git branch -m | -M oldbranch newbranch
 
 ### 清除远程已经删除的本地分支
 	git remote prune origin
 
 ## 代码合并
-### 合并某次提交 
+### 合并某次提交
 例如对于已经发布的产品分支， 只需要合入某个bug修改。 可以使用git cherry-pick命令， 相当于只合入某个补丁。  
 切换到对应需要的分支， 执行cherry-pick命令:
 
     git checkout <branch name>
     git cherry-pick <commit id>
 
+## 解决冲突
+### 二进制文件冲突解决
+使用自己的修改：  
+
+```
+git checkout --ours binary.dat
+git add binary.dat
+```
+使用远程的修改:
+```
+git checkout --theirs binary.dat
+git add binary.dat
+```
 # git 客户端
 ## 命令行客户端
 * [git for windows](https://git-for-windows.github.io/), 下载慢可以直接在360, 腾讯管家等搜索git，安装即可。
   git for windows也有图形界面。
-  
+
   在对应的项目目录下， 右键，选择："git bash here",  可以省着使用cd 进行切换。
 * Linux, apt-get/yum 直接install 就好了。
 
@@ -328,4 +341,3 @@ Source设置SSH Key容易， 而且还自带了内置的git。
 “工具”->"选项":
 
 ![three steps](/img/post/git/sourcetree-ssh.png)
-

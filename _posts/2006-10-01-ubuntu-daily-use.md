@@ -2,7 +2,7 @@
 layout:     post
 title:      "Ubuntu 日常使用"  
 subtitle:   "常用软件和问题解决"
-date:       2011-01-18 16:08:00 +08:00
+date:       2010-01-18 16:08:00 +08:00
 author:     "Sun Jianjiao <jianjiaosun@163.com>"
 header-img: "img/bg/default-bg.jpg"
 catalog: true
@@ -34,7 +34,9 @@ tags:
 **3. 导出HTML**  
 在预览的页面，鼠标右键->选择 *“Save As HTML...”* 进行导出。
 
+
 # 文档格式转换
+## Pandoc
 **Pandoc** 是一个标记语言转换工具，可实现不同标记语言间的格式转换，以命令行形式实现与用户的交互，并且支持多种操作系统。
 
 1. 安装pandoc  
@@ -57,6 +59,10 @@ pandoc -S -f markdown -t html  <input_file> -o <output_file>
 
 3. 更多例子  
 官方文档: [http://pandoc.org/demos.html](http://pandoc.org/demos.html)
+
+## i5ting_toc
+将markdown 转化为带样式的html字符串，i5ting_toc是node环境下的实现工具，用于直接将markdown文件转化为网页，在浏览器打开 。
+使用方法: https://github.com/i5ting/tocmd.npm
 
 # 中文输入法
 **搜狗输入法** 目前是Linux上最好用的中文输入法了。

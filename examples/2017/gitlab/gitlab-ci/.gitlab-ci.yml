@@ -1,0 +1,12 @@
+stages:	
+- build
+
+build:
+    stage: build
+    script:
+    - bash ./release.sh master
+    - bash ./deploy.sh
+    tags:
+    - hmi-service
+    only:
+    - master 

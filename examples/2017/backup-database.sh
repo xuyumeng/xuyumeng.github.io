@@ -18,6 +18,7 @@ mysqldump --login-path=client --single-transaction $DATABASE | gzip > $back_name
 find . -type f -mtime +7 | xargs rm -rf
 
 # backup to remote
+# 通过秘钥免登陆的设置方法: http://www.unanao.cn/2007/07/08/linux/
 echo $back_name 
 scp ${back_name} $REMOTE_SERVER_USER@$REMOTE_SERVER_IP:$REMOTE_BACKUP_DIR
 

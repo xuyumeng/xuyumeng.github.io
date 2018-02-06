@@ -53,6 +53,10 @@ AssertionError: html-pdf: Failed to load PhantomJS module. You have to set the p
 ```
 需要卸载并重新安装markdown-themeable-pdf，重启Atom即可。
 
+**6. TOC**
+没有TOC怎么写有目录的文档！没有目录那还是文档吗！
+安装markdown-toc, 在Atom中 Command + Shift + P 输入 TOC，回车。保存后还能自动更新。
+
 # 文档格式转换
 ## i5ting_toc
 将markdown 转化为带样式的html字符串，i5ting_toc是node环境下的实现工具，用于直接将markdown文件转化为网页，在浏览器打开 。

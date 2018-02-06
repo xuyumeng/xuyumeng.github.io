@@ -34,32 +34,22 @@ tags:
 **3. 导出HTML**  
 在预览的页面，鼠标右键->选择 *“Save As HTML...”* 进行导出。
 
+**4. 导出pdf**
+第一步：
+```
+npm install -g html-pdf
+npm install -g phantomjs
+```
+第二步：
+搜索安装package: markdown-themeable-pdf
+
+如果先安装markdown-themeable-pdf， 后安装的phantomjs， 提示：
+```
+AssertionError: html-pdf: Failed to load PhantomJS module. You have to set the path to the PhantomJS binary using ‘options.phantomPath’
+```
+需要卸载并重新安装markdown-themeable-pdf，重启Atom即可。
 
 # 文档格式转换
-## Pandoc
-**Pandoc** 是一个标记语言转换工具，可实现不同标记语言间的格式转换，以命令行形式实现与用户的交互，并且支持多种操作系统。
-
-1. 安装pandoc  
-```
-   sudo apt-get install pandoc
-```
-2. 基本语法  
-1) Pandoc会根据文件的后缀名自动判断格式
-```
-pandoc <input_file> -o <output_file>
-```
-*input_file*和*output_file* 需要待正确的后缀。　
-2) 显式指定输入文件和输出文件格式
-```
-pandoc -S -f markdown -t html  <input_file> -o <output_file>
-```
- * -S --smart，　可以解决一些转换后乱码的问题
- * -f 源文件文件类型
- * -t 转换后的文件类型
-
-3. 更多例子  
-官方文档: [http://pandoc.org/demos.html](http://pandoc.org/demos.html)
-
 ## i5ting_toc
 将markdown 转化为带样式的html字符串，i5ting_toc是node环境下的实现工具，用于直接将markdown文件转化为网页，在浏览器打开 。
 使用方法: https://github.com/i5ting/tocmd.npm

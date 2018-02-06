@@ -24,17 +24,21 @@ tags:
 **2. 打开Markdown实时预览功能**  
 **方法一：**  
 直接通过快捷键打开：　*Ctrl + shift + m*  
-**方法二：**  
+** 方法二：**  
 通过页面你选择markdown prview toggle打开:  
  1) Linux/Windows上按下快捷键： *ctrl + shift + p*    
  2) 搜索　*markdown*  
  3) 选择　*markdown preview toggle*    
 ![atom markdonw preview](/img/post/ubuntu-daily-use/atom-markdown-preview.png)
 
-**3. 导出HTML**  
+**预览功能增强的插件**
+markdown-preview-enhanced， 个人觉得更好用， 支持预览时， 编辑和预览同时滚动。
+
+
+**4. 导出HTML**  
 在预览的页面，鼠标右键->选择 *“Save As HTML...”* 进行导出。
 
-**4. 导出pdf**
+**5. 导出pdf**
 第一步：
 ```
 npm install -g html-pdf

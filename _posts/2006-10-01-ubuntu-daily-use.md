@@ -62,6 +62,9 @@ AssertionError: html-pdf: Failed to load PhantomJS module. You have to set the p
 将markdown 转化为带样式的html字符串，i5ting_toc是node环境下的实现工具，用于直接将markdown文件转化为网页，在浏览器打开 。
 使用方法: https://github.com/i5ting/tocmd.npm
 
+## 导出有侧边目录的pdf
+https://github.com/unanao/toolbox/tree/master/markdown
+
 # 中文输入法
 **搜狗输入法** 目前是Linux上最好用的中文输入法了。
 1. 下载地址  

@@ -16,7 +16,8 @@ tags:
 
 # 文本编辑器
 
-**Atom** 是由github开发的开源文本编辑器，跨平台，支持插件扩展... ...。　对于我最重要的用途是使用Atom作为Markdown的编辑器。
+## **Atom** 
+是由github开发的开源文本编辑器，跨平台，支持插件扩展... ...。　对于我最重要的用途是使用Atom作为Markdown的编辑器。
 
 **1. 下载地址**
 [https://www.atom.io/](https://www.atom.io/)
@@ -57,8 +58,11 @@ AssertionError: html-pdf: Failed to load PhantomJS module. You have to set the p
 没有TOC怎么写有目录的文档！没有目录那还是文档吗！
 安装markdown-toc, 在Atom中 Command + Shift + P 输入 TOC，回车。保存后还能自动更新。
 
+## visual studio code
+微软开发的开源的跨平台编辑器， 功能和atom类似， 但是速度和资源占用比atom少。目前已经抛弃atom, 转到visual studio code。主要用来编写markdown文件。
+
 # 文档格式转换
-## i5ting_toc
+### i5ting_toc
 将markdown 转化为带样式的html字符串，i5ting_toc是node环境下的实现工具，用于直接将markdown文件转化为网页，在浏览器打开 。
 使用方法: https://github.com/i5ting/tocmd.npm
 

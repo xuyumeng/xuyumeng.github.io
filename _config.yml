@@ -62,7 +62,7 @@ duoshuo_share: true                     # set to false if you want to use Commen
 ba_track_id: 04daadb513f06ea7fb4508fc5b4cbc3f
 # Google Analytics
 ga_track_id: 'UA-79223060-1'            # Format: UA-xxxxxx-xx
-ga_domain: www.unanao.cn
+ga_domain: unanao.github.io
 
 
 

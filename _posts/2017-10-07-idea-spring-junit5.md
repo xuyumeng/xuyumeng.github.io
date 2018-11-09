@@ -1,3 +1,18 @@
+---
+layout:     post
+title:      "Idea 创建Junit5 单元测试"  
+subtitle:   "遇到问题的解决方法"
+date:       2017-10-07 11:08:00 +08:00
+author:     "Sun Jianjiao <jianjiaosun@163.com>"
+header-img: "img/bg/default-bg.jpg"
+catalog: true
+tags:
+    - idea
+    - 单元测试
+    - Junit5
+
+---
+
 最近Junit5发布了，使用时候时候和Junit4还是有一些区别的，如生成测试类，依赖的jar包等，将遇到的问题简单整理了一下。
 
 # 1. 目录结构

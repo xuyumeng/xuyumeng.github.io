@@ -2,7 +2,7 @@
 layout:     post
 title:      "Idea 创建Junit5 单元测试"  
 subtitle:   "遇到问题的解决方法"
-date:       2017-10-07 11:08:00 +08:00
+date:       2017-09-17 11:08:00 +08:00
 author:     "Sun Jianjiao <jianjiaosun@163.com>"
 header-img: "img/bg/default-bg.jpg"
 catalog: true

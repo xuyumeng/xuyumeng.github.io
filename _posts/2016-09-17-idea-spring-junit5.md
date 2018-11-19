@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Idea 创建Junit5 单元测试"  
+title:      "Idea 创建Junit 单元测试"  
 subtitle:   "遇到问题的解决方法"
 date:       2016-09-17 11:08:00 +08:00
 author:     "Sun Jianjiao <jianjiaosun@163.com>"
@@ -12,8 +12,6 @@ tags:
     - Junit
 
 ---
-
-最近Junit5发布了，使用时候时候和Junit4还是有一些区别的，如生成测试类，依赖的jar包等，将遇到的问题简单整理了一下。
 
 # 1. 目录结构
 
@@ -78,6 +76,32 @@ public class MsgServiceTest {
     }
 ```
 
+# 5. 运行单元测试
+## 5.1 Idea运行单元测试
+idea只需要在测试类上运行就可以了。
+
+## 5.2 gradle运行单元测试
+
+命令:
+```
+./gradlew test
+```
+
+不运行单元测试时，通过-i参数查看具体原因
+```
+./gradlew test -i
+```
+如果提示 No Test Source， 在build.gradle中增加sourceSet:
+```
+sourceSets {
+    test {
+        java {
+            srcDir 'src/test'
+        }
+    }
+}
+```
+只有"srcDir"指定目录，如果设置srcDir="src/test", 那么gradle会从 “$projectdir/src/test/com/…”寻找测试代码。
 
 # 5. 问题解决
 ## 5.1 Command line is too long

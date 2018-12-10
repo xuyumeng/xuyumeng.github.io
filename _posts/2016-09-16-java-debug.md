@@ -1,3 +1,18 @@
+---
+layout:     post
+title:      "Java 调试"
+subtitle:   "调试环境"
+date:       2016-09-16 14:30:00 +08:00
+author:     "Sun Jianjiao <jianjiaosun@163.com>"
+header-img: "img/bg/railway-station-1363771_1280.jpg"
+catalog: true
+tags:
+    - java
+    - docker
+    - 远程调试
+
+---
+
 # 1.1 docker中的参数设置
 > docker让部署更方便，但是调试起来比本地开发稍微有些麻烦。 
 
@@ -62,10 +77,10 @@ docker-compose up -d image-name
 
 # 2. idea远程调试
 1. 进入运行选项配置的
-![edit config](image/edit-config.png) 
+![edit config](/img/post/java/docker/edit-config.png) 
 
 2. 添加remote运行的选项
-![remote add](image/config-ip-port.png)
+![remote add](/img/post/java/config-ip-port.png)
 
 # 3. Java VisualVM远程监控
 ## 3.1 方法一

@@ -13,10 +13,10 @@ tags:
 
 ---
 
-# 1.1 docker中的参数设置
+# 1 远程调试和监控
 > docker让部署更方便，但是调试起来比本地开发稍微有些麻烦。 
 
-## 1 docker-compose 文件修改
+## 1.1 docker-compose 文件修改
 
 1. 指定启动参数：在 Dockerfile 中有一个指令叫做 ENTRYPOINT 指令，用于指定接入点，在docker-compose.yml 中可以定义接入点，覆盖 Dockerfile 中的定义就可以指定启动的调试参数了。
 2. 暴露调试端口
@@ -75,25 +75,10 @@ docker-compose up -d image-name
 ```
 也可以不加-d，查看启动的详细信息。
 
-# 2. idea远程调试
-1. 进入运行选项配置的
-![edit config](/img/post/java/docker/edit-config.png) 
+## 1.3 问题定位
+> 如果后续无法连接，可以通过下面的方法进行定位
 
-2. 添加remote运行的选项
-![remote add](/img/post/java/config-ip-port.png)
-
-# 3. Java VisualVM远程监控
-## 3.1 方法一
-“文件” -> "添加JMX连接"
-
-## 3.2 方法二
-1. “文件” -> "添加远程主机"
-2. 在远程主机上， 右键。“添加JMX连接”
-
-添加完成后，“远程“的下面就会出现添加的“远程主机”， 然后点开“+”，就可以看到想要监视的进程啦。
-
-# 4 问题定位
-## 4.1 登录到docker里面查看启动的参数
+### 1.3.1 登录到docker里面查看启动的参数
 
 ```
 E:\project\edgex\images>docker exec -it edgex-export-client sh
@@ -107,8 +92,43 @@ PID   USER     TIME   COMMAND
 ```
 查看ps到的参数是否与docker-compoer.yml中配置的一致。
 
-## 4.2 调试端口是否已经被占用
+### 1.3.2 调试端口是否已经被占用
 关闭镜像，查看配置的调试端口是否还在
 ```
 netstat -n
 ```
+
+## 1.4. idea远程调试
+1. 进入运行选项配置的
+![edit config](/img/post/java/docker/edit-config.png) 
+
+2. 添加remote运行的选项
+![remote add](/img/post/java/config-ip-port.png)
+
+## 1.5 Java VisualVM远程监控
+## 3.1 方法一
+“文件” -> "添加JMX连接"
+
+## 3.2 方法二
+1. “文件” -> "添加远程主机"
+2. 在远程主机上， 右键。“添加JMX连接”
+
+添加完成后，“远程“的下面就会出现添加的“远程主机”， 然后点开“+”，就可以看到想要监视的进程啦。
+
+# 2. docker alpine 软件安装
+只使用8-jdk-alpine作为基础镜像，打包的镜像是没有jstat/jps等命令的。
+```
+FROM openjdk:8-jdk-alpine
+VOLUME /tmp
+
+RUN echo "https://mirror.tuna.tsinghua.edu.cn/alpine/v3.6/community" > /etc/apk/repositories
+RUN echo "https://mirror.tuna.tsinghua.edu.cn/alpine/v3.6/main" >> /etc/apk/repositories
+
+```
+
+通过如下命令安装：
+```
+apk add openjdk8
+```
+
+可以通过[这里](https://pkgs.alpinelinux.org/packages)查询文件在哪个包里，如jstat。

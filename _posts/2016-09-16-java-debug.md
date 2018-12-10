@@ -126,9 +126,14 @@ RUN echo "https://mirror.tuna.tsinghua.edu.cn/alpine/v3.6/main" >> /etc/apk/repo
 
 ```
 
-通过如下命令安装：
+通过如下命令安装（可以通过[这里](https://pkgs.alpinelinux.org/packages)查询文件在哪个包里，如jstat)
+
 ```
 apk add openjdk8
 ```
 
-可以通过[这里](https://pkgs.alpinelinux.org/packages)查询文件在哪个包里，如jstat。
+jstat等安装在:
+```
+/usr/lib/jvm/java-1.8-openjdk/bin
+```
+

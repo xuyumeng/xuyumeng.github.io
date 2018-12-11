@@ -13,7 +13,6 @@ tags:
 
 ---
 
-
 # 1. 说明
 
 微服务架构中，业务功能的提供者，提供rest接口的同时， 一般会提供接口的jar包，简化其他服务调用。使用Feign作为http客户端，调用远程的http接口就会变得像调用本地方法一样简单。
@@ -21,7 +20,6 @@ tags:
 Feign是一个声名式的web服务客户端，它让写web服务的客户端更容易。在使用Feign时，Spring Cloud通过集成integrates Ribbon和Eureka提供负载均衡。
 
 本文通过一个例子，包括rest接口的声明，客户端接口的编写(jar包)，和其他服务调用。
-
 
 # 2. 服务的Rest接口
 ```
@@ -40,7 +38,9 @@ Feign是一个声名式的web服务客户端，它让写web服务的客户端更
 
 ## 3.1 公共Dto
 UserDto.java
+
 ```
+
 import lombok.Data;
 
 @Data
@@ -86,12 +86,14 @@ public interface UserApi {
 
 # 4. 消费服务
 ## 4.1 启用Feign
-通过@EnableFeignClients
+通过@EnableFeignClients使能feign
+
 ```
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
-@EnableFeignClients
+@EnableFeignClients(basePackages = "com.commons.user.api")   //不在同一个包
+//@EnableFeignClients                                        //在同一个包，需要指定basePackages
 public class Application {
 
     public static void main(String[] args) {
@@ -100,6 +102,8 @@ public class Application {
 
 }
 ```
+
+由于feign声明的接口与消费服务不在同一个包里面， 所以需要执行basePackages。
 
 ## 4.2 消费
 ```
@@ -114,6 +118,14 @@ public class GetUser {
 }
 ```
 
-# 5. 参考文档
+# 5. 测试
+对于feign封装接口的jar包，主要用于其他服务进行调用，如果单独写一个服务进行测试，实在是太麻烦了。可以通过使用junit进行测试。
+
+由于jar没有main函数，并且没有资源文件， 在test目录下创建专门用于测试的：
+- 创建用于测试main类。
+- 添加用于测试的资源文件
+
+
+# 6. 参考文档
 
 - http://cloud.spring.io/spring-cloud-static/Edgware.SR5/multi/multi_spring-cloud-feign.html

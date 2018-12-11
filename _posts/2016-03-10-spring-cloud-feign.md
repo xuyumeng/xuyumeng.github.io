@@ -125,6 +125,7 @@ public class GetUser {
 - 创建用于测试main类。
 - 添加用于测试的资源文件
 
+Junit单元测试方法： [Idea 创建Junit 单元测试](https://unanao.github.io/2016/09/17/idea-spring-junit5/)
 
 # 6. 参考文档
 

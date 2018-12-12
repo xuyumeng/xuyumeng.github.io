@@ -3,7 +3,7 @@ layout:     post
 title:      "Java 调试"
 subtitle:   "调试环境"
 date:       2016-09-16 14:30:00 +08:00
-author:     "Sun Jianjiao <jianjiaosun@163.com>"
+author:     Sun Jianjiao
 header-img: "img/bg/railway-station-1363771_1280.jpg"
 catalog: true
 tags:

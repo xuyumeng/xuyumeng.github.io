@@ -3,7 +3,7 @@ layout:     post
 title:      "使用feign开发http客户端"
 subtitle:   "Spring cloud feign的使用方法"
 date:       2016-03-10 11:20:00 +08:00
-author:     "Sun Jianjiao <jianjiaosun@163.com>"
+author:     Sun Jianjiao
 header-img: "img/bg/railway-station-1363771_1280.jpg"
 catalog: true
 tags:

@@ -3,7 +3,7 @@ layout:     post
 title:      "使用Git进行开发（二）"  
 subtitle:   "Git 基本使用"
 date:       2017-01-20 16:08:00 +08:00
-author:     "Sun Jianjiao <jianjiaosun@163.com>"
+author:     Sun Jianjiao
 header-img: "img/bg/railway-station-1363771_1280.jpg"
 catalog: true
 tags:

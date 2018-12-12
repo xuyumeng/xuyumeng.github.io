@@ -3,7 +3,7 @@ layout:     post
 title:      "Idea 创建Junit 单元测试"  
 subtitle:   "遇到问题的解决方法"
 date:       2016-09-17 11:08:00 +08:00
-author:     "Sun Jianjiao <jianjiaosun@163.com>"
+author:     Sun Jianjiao
 header-img: "img/bg/default-bg.jpg"
 catalog: true
 tags:

@@ -85,9 +85,8 @@ spring:
       - cacheName1
       - cacheName2
     caffeine:
-      spec: maximumSize=500, expireAfterWrite=5s, recordStats
+      spec: maximumSize=500, expireAfterAccess=600s, recordStats
 ```
-
 
 ### 3.4.2 获取指定cache统计信息:
 ```

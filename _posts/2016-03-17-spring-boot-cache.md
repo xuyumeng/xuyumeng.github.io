@@ -70,7 +70,7 @@ spring:
   cache:
     cache-names: outLimit，notOutLimit
     caffeine:
-      spec: maximumSize=500, expireAfterWrite=5s
+      spec: maximumSize=500, expireAfterAccess=600s
 ```
 
 ## 3.4 查看统计信息

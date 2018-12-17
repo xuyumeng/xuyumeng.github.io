@@ -1,3 +1,17 @@
+---
+layout:     post
+title:      "Spring @async的那些坑"  
+subtitle:   "@async使用过程中需要注意的事项"
+author:     Sun Jianjiao
+header-style: text
+catalog: true
+tags:
+    - Spring
+    - @async
+    - 异步调用
+
+---
+
 Spring @async异步调用使用很方便，使用方法，参考[官方文档](https://spring.io/guides/gs/async-method/)
 
 但是写好后一定要测试，异步函数阻塞，但是调用的地方继续往下执行。

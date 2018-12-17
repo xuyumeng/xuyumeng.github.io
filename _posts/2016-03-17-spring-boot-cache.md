@@ -4,13 +4,14 @@ title:      "Spring boot中使用Caffeine缓存"
 subtitle:   "基本使用方法和缓存信息查看"
 date:       2016-03-17 11:24:00 +08:00
 author:     Sun Jianjiao
-header-img: "img/bg/default-bg.jpg"
 catalog: true
 tags:
     - Spring Boot Caching
     - Caffeine
 
 ---
+
+缓存是将数据从读取较慢的介质上放到读取较快的介质上，如将磁盘上的读取出来放到内存里，这样当需要获取数据时，就能够直接从内存中拿到数据返回，能够很大程度的提高速度。
 
 Spring 框架提供了透明的缓存添加方法，通过抽象层屏蔽了不同缓存之间的差异。通过@EnableCaching注解，spring boot自动对缓存进行配置。
 
@@ -72,5 +73,86 @@ spring:
       spec: maximumSize=500, expireAfterWrite=5s
 ```
 
-# 4. 参看文档
+## 3.4 查看统计信息
+对于缓存命中率非常重要，所以需要对缓存的命中率进行统计，至少在调试和开发阶段需要对命中率进行确认。
+
+### 3.4.1 开启记录统计信息
+application.yml中启用recoredStats, 对缓存信息进行统计。
+```
+spring:
+  cache:
+    cache-names: 
+      - cacheName1
+      - cacheName2
+    caffeine:
+      spec: maximumSize=500, expireAfterWrite=5s, recordStats
+```
+
+
+### 3.4.2 获取指定cache统计信息:
+```
+    @Autowired
+    CacheManager cacheManager;
+
+    private CacheStats stats(String cacheName) {
+        Cache cache = (Cache) cacheManager.getCache(cacheName).getNativeCache();
+
+        return cache.stats();
+    }
+
+```
+
+### 3.4.3 获取所有cache统计信息：
+
+由于CacheStats没有记录缓存的名字，所以需要对CacheStats增加name字段，封装成新的Dto：
+```
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
+import lombok.Data;
+
+@Data
+public class CacheStatsDto {
+    String name;
+    CacheStats cacheStats;
+
+    public CacheStatsDto(String name, CacheStats cacheStats) {
+        this.name = name;
+        this.cacheStats = cacheStats;
+    }
+}
+```
+
+遍历所有的缓存，添加统计信息到链表：
+```
+    public List<CacheStatsDto> stats() {
+        Collection<String> names = cacheManager.getCacheNames();
+        List<CacheStatsDto> cacheStatsDtoList = new LinkedList<>();
+
+        for (String name: names) {
+            CacheStats cacheStats = stats(name);
+
+            CacheStatsDto cacheStatsDto = new CacheStatsDto(name, cacheStats);
+            cacheStatsDtoList.add(cacheStatsDto);
+        }
+
+        return cacheStatsDtoList;
+    }
+
+```
+
+## 3.5 对指定的操作进行缓存
+```
+    @Cacheable(value = "cacheName1", key="#id",sync = true)
+    public String getNodeInfo(int id) {
+        String node =  collectNodeClient.findDataType("315b24e65624620d996715d8e1eb1b41",
+                "贴片机采集点1", "生产数");
+
+        return node;
+    }
+```
+缓存操作的接口和调用的函数分成独立的类，我这里在同一个类里面不生效，没有使用caffeine, 使用了缺省的ConcurrentMap。 修改为独立的类后，使用了caffeine。
+
+
+# 4. 参考文档
 1. [Spring Boot features: Caching](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-caching.html#boot-features-caching-provider-caffeine)
+
+2. [spring caffeine cache tutorial](https://github.com/mvpjava/spring-caffeine-cache-tutorial)

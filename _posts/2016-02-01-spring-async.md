@@ -1,13 +1,13 @@
 ---
 layout:     post
-title:      "Spring @async的那些坑"  
-subtitle:   "@async使用过程中需要注意的事项"
+title:      "Spring async的那些坑"  
+subtitle:   "async使用过程中需要注意的事项"
 author:     Sun Jianjiao
 header-style: text
 catalog: true
 tags:
     - Spring
-    - @async
+    - async
     - 异步调用
 
 ---

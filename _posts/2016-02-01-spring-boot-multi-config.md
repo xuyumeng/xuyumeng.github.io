@@ -94,4 +94,4 @@ spring:
 ```
 
 ## 1.3 idea 选择启动的配置文件
-![set-profile](img/post/spring/spring-boot-multi-conifg-set-profile.png)
+![set-profile](/img/post/spring/spring-boot-multi-conifg-set-profile.png)

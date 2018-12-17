@@ -2,8 +2,8 @@
 layout:     post
 title:      "Spring boot中使用Caffeine缓存"  
 subtitle:   "基本使用方法和缓存信息查看"
-date:       2016-03-17 11:24:00 +08:00
 author:     Sun Jianjiao
+header-style: text
 catalog: true
 tags:
     - Spring Boot Caching

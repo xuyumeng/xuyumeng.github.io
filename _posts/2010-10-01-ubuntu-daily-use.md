@@ -24,7 +24,7 @@ tags:
 **2. 增强Markdown实时预览功能**  
 安装mardown的 perview enhanced插件。
 
-** 3. 预览 **
+**3. 预览**
 先按：Ctrl + k, 然后按“v” 
 
 **4. 导出HTML**  

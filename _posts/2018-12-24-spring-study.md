@@ -1,7 +1,8 @@
 Spring Boot 基本使用
 
 # 文档
-![spring io links](../img/post/java/spring-study/spring-io-links.png)
+
+![spring io links](img/post/java/spring-study/spring-io-links.png)
 
 # 1. 日志
 

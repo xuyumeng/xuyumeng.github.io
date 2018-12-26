@@ -15,6 +15,15 @@ tags:
 # 1. 过期机制
 千万不要忘记设立过期时间，若不设，只能等内存满了，一个个查看Key有没有使用。
 
+## 1.1 过期策略
+Redis采用的是定期删除策略和懒汉式的策略互相配合。**Redis内部自动完成！**
+
+- 定期删除策略：每隔一段时间执行一次删除过期key操作
+- 懒惰淘汰策略：key过期的时候不删除，每次通过key获取值的时候去检查是否过期，若过期，则删除，返回null
+
+懒惰淘汰机制会造成内存浪费，但是节省CPU资源。定时淘汰机制保证过期的数据一定会被释放掉，但是相对消耗CPU资源
+所以，在实际中，如果我们要自己设计过期策略，在使用懒汉式删除+定期删除时，控制时长和频率这个尤为关键，需要结合服务器性能，已经并发量等情况进行调整，以致最佳。
+
 # 2. 使用String还是Hash
 STACK OVERFLOW 上一个对 String 和 Hash 的讨论: [Redis strings vs Redis hashes to represent JSON: efficiency?
 ](https://stackoverflow.com/questions/16375188/redis-strings-vs-redis-hashes-to-represent-json-efficiency)
@@ -166,16 +175,17 @@ public class RedisCacheApplicationTests {
 
     @Test
     public void redistTemplateTest() {
-        // 保存字符串
-        stringRedisTemplate.opsForValue().set("aaa", "111");
+        //字符串
+        stringRedisTemplate.opsForValue().set("aaa", "111", 1, TimeUnit.HOURS);
         Assert.assertEquals("111", stringRedisTemplate.opsForValue().get("aaa"));
 
-        // hash
+        //hash
         redisTemplate.opsForHash().put("hello", "yes", 0);
+        redisTemplate.expire("hello",  30, TimeUnit.MINUTES);
         Assert.assertEquals(0, redisTemplate.opsForHash().get("hello", "yes"));
 
-        // class 
-        redisTemplate.opsForValue().set("xiaoming", new User(1, "xiaoming"));
+        //对象
+        redisTemplate.opsForValue().set("xiaoming", new User(1, "xiaoming"), 60, TimeUnit.MINUTES);
         User user1 = (User) redisTemplate.opsForValue().get("xiaoming");
 
         //publish
@@ -196,4 +206,20 @@ Reading messages... (press Ctrl-C to quit)
 2) "yeah"
 3) "\"hello\""
 
+```
+
+通过ttl查看过期时间：
+```
+127.0.0.1:6379> ttl hello
+(integer) 1747
+127.0.0.1:6379> ttl hello
+(integer) 1699
+127.0.0.1:6379> ttl hello
+(integer) 1698
+127.0.0.1:6379> ttl aaa
+(integer) 3480
+127.0.0.1:6379> ttl aaa
+(integer) 3479
+127.0.0.1:6379> ttl xiaoming
+(integer) 3468
 ```

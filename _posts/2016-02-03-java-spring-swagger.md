@@ -6,9 +6,10 @@ author:     Sun Jianjiao
 header-img: "img/bg/default-bg.jpg"
 catalog: true
 tags:
-    - spring boot
+    - spring
     - 文档编写
     - swagger
+    - java
 
 ---
 

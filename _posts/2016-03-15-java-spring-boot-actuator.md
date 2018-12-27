@@ -7,10 +7,10 @@ author:     Sun Jianjiao
 header-img: "img/bg/default-bg.jpg"
 catalog: true
 tags:
-    - spring boot
+    - spring
     - actuator
     - 系统监控
-
+    - java
 ---
 
 本文以spring boot 2.X为例介绍actuator。 

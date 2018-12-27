@@ -6,8 +6,9 @@ author:     Sun Jianjiao
 header-style: text
 catalog: true
 tags:
-    - Spring Boot Caching
+    - spring
     - Caffeine
+    - java
 
 ---
 

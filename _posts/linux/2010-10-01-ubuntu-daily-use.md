@@ -62,3 +62,12 @@ https://github.com/unanao/toolbox/tree/master/markdown
     find . -name "[Ss]ogou*" | xargs rm -rf
 
 登出再重新登陆即可。
+
+# 3. JAVA IDE
+Idea是非常好用的Java IDE。 Idea提供了一个非常好用的功能, 就是把自己的配置文件备份到Git仓库(如gitlab, github等)，这样就避免了每换一次开发环境就需要重新配置一遍。
+
+1. 创建一个Git仓库， 如Bitbucket 或者 GitHub, 想创建私有的可以使用gitlab。
+2. 配置备份：选择 File | Settings Repository. 填写仓库的URL，点击Overwrite Remote。
+3. 配置恢复：选择 File | Settings Repository. 填写仓库的URL，如果想使用远程的配置，点击Overwrite Local。如果向合并远程和本地的配置，点击Merge，，如果有冲突，可以在对话框中解决。
+
+[翻译自原文链接](https://www.jetbrains.com/help/idea/sharing-your-ide-settings.html) 《Share settings through a settings repository》 一节

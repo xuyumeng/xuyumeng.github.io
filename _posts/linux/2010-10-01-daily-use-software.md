@@ -1,14 +1,12 @@
 ---
 layout:     post
-title:      "Ubuntu 日常使用"  
+title:      "日常使用的软件"  
 subtitle:   "常用软件和问题解决"
 author:     Sun Jianjiao
 header-img: "img/bg/default-bg.jpg"
 catalog: true
 tags:
-    - Ubuntu
-    - linux
-    - 桌面
+    - 桌面软件
     - 日常使用
 
 ---
@@ -71,3 +69,10 @@ Idea是非常好用的Java IDE。 Idea提供了一个非常好用的功能, 就�
 3. 配置恢复：选择 File | Settings Repository. 填写仓库的URL，如果想使用远程的配置，点击Overwrite Local。如果向合并远程和本地的配置，点击Merge，，如果有冲突，可以在对话框中解决。
 
 [翻译自原文链接](https://www.jetbrains.com/help/idea/sharing-your-ide-settings.html) 《Share settings through a settings repository》 一节
+
+# 4. 数据库设计软件
+Mysql workbench的设计功能完全满足我的需求，免费并且跨平台，是一个不错的选择。即使不是使用的mysql，如果只是用来进行数据库的设计，那也足够了。
+
+下载地址：  https://dev.mysql.com/downloads/workbench/
+
+# 5. 

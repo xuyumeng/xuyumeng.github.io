@@ -110,5 +110,5 @@ sourceSets {
 ```
 Error running 'Test1.test': Command line is too long. Shorten command line for Test1.test or also for JUnit default configuration. 
 ```
-注意： 最简单的方法，就是你重新创建一个新的测试类，在里面重新写一遍测试方法，代码都可以粘贴过去。如果不行，尝试下面的方法。
-也可以通过修改workspace.xml解决。详见 [链接](https://www.cnblogs.com/sxdcgaq8080/p/9025201.html)
+选择“Edit Configurations”， 将对应的单元测试的command line修改为“JAR mainfest”
+![manifest](img/post/java/junit/command-too-long.png)

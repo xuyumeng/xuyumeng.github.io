@@ -105,12 +105,22 @@ public class SwaggerConfig {
 @RequestMapping(value = "v1/processParameter")
 @Api(value = "工艺参数", description = "用于设备工艺参数的获取")
 public class ProcessParameterController {
-    @RequestMapping(value = "/history/{id}/{start}/{end}", method = RequestMethod.GET)
+    @RequestMapping(value = "/history/{id}/{start}/{end}", method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "获取设备历史工艺参数", notes = "用于根据设备id获取设备的历史工艺参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "设备ID", required = true, paramType = "query", dataType = "integer"),
             @ApiImplicitParam(name = "start", value = "开始时间", required = true, paramType = "query", dataType = "string"),
             @ApiImplicitParam(name = "end", value = "结束时间", required = true, paramType = "query", dataType = "string")
+    })
+
+    @ApiResponses({
+            @ApiResponse(code = 400, message = "请求参数有误"),
+            @ApiResponse(code = 401, message = "未授权"),
+            @ApiResponse(code = 403, message = "禁止访问"),
+            @ApiResponse(code = 404, message = "请求路径不存在"),
+            @ApiResponse(code = 500, message = "服务器内部错误")，
+            @ApiResponse(code = 0, message = "成功")，
+            @ApiResponse(code = 1, message = "失败")
     })
     public List<ProcessParameterDto> history(@PathVariable long id, @PathVariable String start, @PathVariable String end) {
         ... ...
@@ -144,6 +154,35 @@ public class ProcessParameterController {
 - header 使用@RequestHeader接收数据
 - dataType 数据类型，如果类型名称相同，请指定全路径，例如 dataType = “java.util.Date”，springfox会自动根据类型生成模型
 
+### 2.4.3 @ApiResponses
+可以定制返回的错误码，如一般公司都会定制返回固定格式的消息：
+```
+{
+    code: xxx
+    msg: yyy
+    String: json
+}
+```
+这时候就需要返回200的httpcode， 私有的错误码通过code字段返回。这里面的code字段就可以通过@ApiResponses描述。
+
+### 2.4.4 @RequestMapping
+RequestMapping不是swagger的注解，但是对swagger的显示有影响。
+如果写成:
+
+```java
+@RequestMapping(value = "/history/{id}/{start}/{end}", method = RequestMethod.GET)
+```
+
+Response content type会有*/*选项：
+![auto](img/post/java/swagger/response-type-auto.png)
+
+
+如果不想看到*/*选项，可以增加**produces = "application/json"**, 只显示指定的格式。
+```java
+@RequestMapping(value = "/history/{id}/{start}/{end}", method = RequestMethod.GET, produces = "application/json")
+```
+![specify](img/post/java/swagger/response-type-specify.png)
+
 
 # 2.5. swagger对象注解
 
@@ -161,7 +200,83 @@ public class StateDto {
 }
 ```
 
-# 3. 导出成pdf和html文档
+# 3. 导出为markdown
+1. 在build.gradle中增加:
+
+```grdle
+    compile 'io.github.swagger2markup:swagger2markup:1.3.3'
+```
+
+2. 添加生成markdown的单元测试代码
+
+```java
+import io.github.swagger2markup.GroupBy;
+import io.github.swagger2markup.Language;
+import io.github.swagger2markup.Swagger2MarkupConfig;
+import io.github.swagger2markup.Swagger2MarkupConverter;
+import io.github.swagger2markup.builder.Swagger2MarkupConfigBuilder;
+import io.github.swagger2markup.markup.builder.MarkupLanguage;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@WebAppConfiguration
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = {XXXXApplication.class, SwaggerConfig.class})
+@AutoConfigureMockMvc
+public class SwaggerExportMarkdown {
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    public void export2markdown() throws Exception {
+        MvcResult mvcResult = this.mockMvc.perform(get("/v2/api-docs")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        String swaggerJson = response.getContentAsString();
+
+        Swagger2MarkupConfig config = new Swagger2MarkupConfigBuilder()
+                .withMarkupLanguage(MarkupLanguage.MARKDOWN)
+                .withOutputLanguage(Language.ZH)
+                .withPathsGroupedBy(GroupBy.TAGS)
+                .withGeneratedExamples()
+                .withoutInlineSchema()
+                .build();
+
+        Swagger2MarkupConverter converter = Swagger2MarkupConverter.from(swaggerJson)
+                .withConfig(config)
+                .build();
+
+        Path outputFile = Paths.get("build/swagger");
+        converter.toFile(outputFile);
+    }
+}
+```
+- 将XxxApplication.class修改为项目的Applcation。
+- SwaggerConfig.class修改为 #2.2 节的配置类
+
+3. 执行运行单元测试
+生成的markdown文件在build目录下
+
+
+# 4. 导出成pdf和html文档
 swagger在线文档很方便， 但是对于发布和评审还是有一些不方便的地方，可以通过swagger2markup导出。
 
 参考官方的demo，把[官方demo](https://github.com/Swagger2Markup/spring-swagger2markup-demo)的代码拷贝到项目就可以了。主要包括：

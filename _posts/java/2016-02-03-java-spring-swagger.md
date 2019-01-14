@@ -201,13 +201,13 @@ public class StateDto {
 ```
 
 # 3. 导出为markdown
-1. 在build.gradle中增加:
+## 3.1 在build.gradle中增加:
 
 ```grdle
-    compile 'io.github.swagger2markup:swagger2markup:1.3.3'
+    testCompile 'io.github.swagger2markup:swagger2markup:1.3.3'
 ```
 
-2. 添加生成markdown的单元测试代码
+# 3.2 添加生成markdown的单元测试代码
 
 ```java
 import io.github.swagger2markup.GroupBy;
@@ -272,8 +272,24 @@ public class SwaggerExportMarkdown {
 - 将XxxApplication.class修改为项目的Applcation。
 - SwaggerConfig.class修改为 #2.2 节的配置类
 
-3. 执行运行单元测试
-生成的markdown文件在build目录下
+## 3.3 生成markdown
+运行单元测试，生成的markdown文件在build目录下
+
+
+## 3.4 生成带toc的markdown文档
+如果想要生成带toc的markdown文档，需要做如下操作：
+
+build.gradle中增加
+
+```gradle
+testCompile group: 'com.github.houbb', name: 'markdown-toc', version: '1.0.4'
+```
+
+代码在3.2节代码的最后一行增加如下代码：
+
+```java
+AtxMarkdownToc.newInstance().charset("UTF-8").genTocFile("build/swagger.md");
+```
 
 
 # 4. 导出成pdf和html文档

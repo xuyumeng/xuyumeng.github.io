@@ -4,62 +4,160 @@ Spring的目标是致力于全方位简化Java开发。为了降低Java开发的
 - 基于切面和惯例进行声名式编程；
 - 通过切面和模板减少样板式代码。
 
-# IOC控制反转
+一定程度的耦合是必须的——完全没有耦合的代码什么也做不了。为了完成有意义的功能，不同的类必须以适当的方式进行交互。
 
-IoC（Inversion of Control​，控制反转）也称为依赖注入（Dependency Injection），作为Spring的一个核心思想，是一种设计对象之间依赖关系的原则及其相关技术，作为Spring的一个关键技术，让我们好好的了解一下吧。
+# 1. 依赖注入的优点
 
-当一个对象创建时，它所依赖的对象由外部传递给它，而非自己去创建所依赖的对象（比如通过new操作）。因此，也可以说在对象如何获取它的依赖对象这件事情上，控制权反转了。这便不难理解控制反转和依赖注入这两个名字的由来了。
+## 1.1 不使用依赖注入
+传统做法：每个对象负责管理与自己相互协作的对象（即它所依赖的对象）的引用这将会导致高度耦合和难以测试的代码。
 
-
-对象的创建交给外部容器完成，这个就做控制反转。
-
-- Spring使用控制反转来实现对象不用在程序中写死
-- 控制反转解决对象处理问题【把对象交给别人创建】
-
-那么对象的对象之间的依赖关系Spring是怎么做的呢？？依赖注入，dependency injection.
-
-Spring使用依赖注入来实现对象之间的依赖关系
-
-在创建完对象之后，对象的关系处理就是依赖注入
-
-上面已经说了，控制反转是通过外部容器完成的，而Spring又为我们提供了这么一个容器，我们一般将这个容器叫做：IOC容器.
-
-无论是创建对象、处理对象之间的依赖关系、对象创建的时间还是对象的数量，我们都是在Spring为我们提供的IOC容器上配置对象的信息就好了。
+![不使用依赖注入](img/post/java/DI/DI-no-di.png)
 
 
-ioc的思想最核心的地方在于，资源不由使用资源的双方管理，而由不使用资源的第三方管理，这可以带来很多好处。第一，资源集中管理，实现资源的可配置和易管理。第二，降低了使用资源双方的依赖程度，也就是我们说的耦合度。
+### 1.1.1 早晨去跑步：
 
-也就是说，甲方要达成某种目的不需要直接依赖乙方，它只需要达到的目的告诉第三方机构就可以了，比如甲方需要一双袜子，而乙方它卖一双袜子，它要把袜子卖出去，并不需要自己去直接找到一个卖家来完成袜子的卖出。它也只需要找第三方，告诉别人我要卖一双袜子。这下好了，甲乙双方进行交易活动，都不需要自己直接去找卖家，相当于程序内部开放接口，卖家由第三方作为参数传入。甲乙互相不依赖，而且只有在进行交易活动的时候，甲才和乙产生联系。反之亦然。这样做什么好处么呢，甲乙可以在对方不真实存在的情况下独立存在，而且保证不交易时候无联系，想交易的时候可以很容易的产生联系。甲乙交易活动不需要双方见面，避免了双方的互不信任造成交易失败的问题。因为交易由第三方来负责联系，而且甲乙都认为第三方可靠。那么交易就能很可靠很灵活的产生和进行了。这就是ioc的核心思想。生活中这种例子比比皆是，支付宝在整个淘宝体系里就是庞大的ioc容器，交易双方之外的第三方，提供可靠性可依赖可灵活变更交易方的资源管理中心。另外人事代理也是，雇佣机构和个人之外的第三方。
-==========================update===========================
+```java
+class Running{
+    public void play() {
+        System.out.println("Runing");
+    }
 
-在以上的描述中，诞生了两个专业词汇，依赖注入和控制反转所谓的依赖注入，则是，甲方开放接口，在它需要的时候，能够讲乙方传递进来(注入)所谓的控制反转，甲乙双方不相互依赖，交易活动的进行不依赖于甲乙任何一方，整个活动的进行由第三方负责管理。
+}
 
-# 6 大模块
-Spring可以分为6大模块：
+public class Player {
 
-- Spring Core  spring的核心功能： IOC容器, 解决对象创建及依赖关系
+    private Running running;
 
-- Spring Web  Spring对web模块的支持。
+    public Player() {
+        running = new Running();
+    }
 
-可以与struts整合,让struts的action创建交给spring
+    public void doSports() {
+        System.out.println("Play Sports: ");
+        running.play();
+    }
+}
 
-spring mvc模式
+public class TestRunning {
+    public static void main(String[] args) {
+        Player player = new Player();
 
-Spring DAO  Spring 对jdbc操作的支持  【JdbcTemplate模板工具类】
+        player.play();
 
-- Spring ORM  spring对orm的支持：
+    }
+}
 
-既可以与hibernate整合，【session】
+```
 
-也可以使用spring的对hibernate操作的封装
+### 1.1.2 中午午休时间想打打乒乓球了
 
-- Spring AOP  切面编程
+```java
+class TableTennis{
+    public void play() {
+        System.out.println("Table tennis");
+    }
 
-- SpringEE   spring 对javaEE其他模块的支持
+}
 
-## Core模块
+public class Player {
 
-Core是IOC容器，解决对象创建和之间的依赖关系。
+    private TableTennis tableTennis;
 
-### 得到Spring容器对象【IOC容器】
+    public Player() {
+        tableTennis = new TableTennis();
+    }
 
+    public void doSports() {
+        System.out.println("Play Sports: ");
+        tableTennis.play();
+    }
+}
+
+public class TestTableTennis {
+    public static void main(String[] args) {
+        Player player = new Player();
+
+        player.play();
+
+    }
+}
+```
+
+每次修改都需要修改Player类，有没有办法减少Player类的修改呢？
+
+## 1.2 依赖注入
+
+![使用依赖注入](img/post/java/DI/DI-player.png)
+
+如图所示，依赖关系将被注入到需要他们的对象中去。**依赖注入将所有依赖关系交给目标对象，而不是让对象自己去获取依赖**。
+
+```java
+public interface Sports() {
+    void doSports();
+}
+
+class TableTennis implements Sports{
+    public void doSports() {
+        System.out.println("Table tennis");
+    }
+
+}
+
+class Running implements Sports{
+    public void doSports() {
+        System.out.println("Running");
+    }
+
+}
+
+public class Player {
+
+    private Sports sports;
+
+    public Player(Sports sports) {               //Sports被注入进来
+        this.sports = sports;
+    }
+
+    public void doSports() {
+        System.out.println("Play Sports: ");
+        sports.doSports();
+    }
+}
+
+public class TestDoSports {
+    public static void main(String[] args) {
+        // Running
+        Player player = new Player(new Running());
+        player.doSports();
+
+        // Table tennis
+        Player player = new Player(new TableTennis());
+        player.doSports();
+    }
+}
+```
+
+通过依赖注入的方式，不需要修改Player类，就可以完成不同的运动。
+
+# 2. Spring的bean管理
+![spring 容器](img/post/java/DI/spring-container.png)
+
+通过依赖注入，对象的依赖关系将由系统中负责协调个对象的第三方组件在创建对象的时候进行设定。对象无需自行创建或管理他们的依赖关系。
+依赖注入就是组装应用对象的一种方式，借助这种方式对象无需知道依赖来自何处或者依赖的实现方式。
+Spring 容器负责创建对象，装配它们，配置并管理它们的整个生命周期。
+
+资源不由使用资源的双方管理，而由不使用资源的第三方管理，这可以带来很多好处。第一，资源集中管理，实现资源的可配置和易管理。第二，降低了使用资源双方的依赖程度，也就是我们说的耦合度。
+
+## 2.1 配置的可选方案
+- 在XML中进行进行显示配置
+- 在Java中进行显示配置
+- 隐式的bean发现机制和自动装配
+
+尽可能的使用自动装配机制，显示配置越少越好。当需要显示配置的时候，JavaConfig配置更好。
+
+## 2.2 自动化装配Bean
+Spring 从2个方面实现自动化装配：
+- 组件扫描(component scannning): Spring 会自动发现应用上下文中创建的bean。通过@Component声明
+- 自动装配(autowiring): Spring自动满足bean之间的依赖关系。通过@AutoWired注入。
+
+组件扫描和自动装配组合在一起就能发挥强大的威力，他们能够将你的显示配置降低到最少。

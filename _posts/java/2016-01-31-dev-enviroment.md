@@ -31,7 +31,7 @@ windows安装麻烦一点。
 
 开发环境需要使用JDK, 从 [下载地址](https://www.oracle.com/technetwork/java/javase/downloads/index.html)下载对应的JDK就可以啦。
 
-## 1.2..22 JDK安装
+## 1.2.2.2 JDK安装
 
 安装过程中可以自定义安装目录等信息，不定义使用缺省配置一路下一步就可以了。例如我们选择安装目录为：
 

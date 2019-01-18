@@ -50,7 +50,8 @@ tags:
 # 4. 测试代码编写
 
 运行有rest接口的程序
-```
+
+```java
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,9 +60,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-@RunWith(SpringJUnit4ClassRunner.class) // SpringJUnit支持，由此引入Spring-Test框架支持！
-@SpringBootTest(classes = Application.class) // 指定我们SpringBoot工程的Application启动类
-@WebAppConfiguration // 由于是Web项目，Junit需要模拟ServletContext，因此我们需要给我们的测试类加上@WebAppConfiguration。
+@RunWith(SpringRunner.class)                       // SpringJUnit支持，由此引入Spring-Test框架支持！
+@SpringBootTest(classes = Application.class, webEnvironment=WebEnvironment.RANDOM_PORT) // 指定我们SpringBoot工程的Application启动类
 public class MsgServiceTest {
 
     @Before
@@ -77,6 +77,13 @@ public class MsgServiceTest {
         System.out.println("hello");
     }
 ```
+
+- @RunWith(SpringRunner.class) 通知JUnit使用Spring testing支持. spring boot1.4版本后，SpringRunner 是SpringJUnit4ClassRunner的新名字
+- @SpringBootTest 开启Spring Boot支持，例如加载application.yml, 同时给我们所有Spring Boot的好处。
+- webEnvironment 允许特定的web环境，可以选择MOCK servlet，或者运行实际的HTTP服务运行在RANDOM_PORT或者DEFINED_PORT.
+- 我们可以通过@SpringBootTest的classes属性加载执行的配置。不指定classes, 测试会首先加载内部类的@Configuration， 如果失败， 它会查找首选的@SpringBootApplication类。
+
+
 
 # 5. 运行单元测试
 ## 5.1 Idea运行单元测试

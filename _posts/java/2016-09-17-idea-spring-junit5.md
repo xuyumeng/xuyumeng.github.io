@@ -79,7 +79,7 @@ public class MsgServiceTest {
 ```
 
 - @RunWith(SpringRunner.class) 通知JUnit使用Spring testing支持. spring boot1.4版本后，SpringRunner 是SpringJUnit4ClassRunner的新名字
-- @SpringBootTest 开启Spring Boot支持，例如加载application.yml, 同时给我们所有Spring Boot的好处。
+- @SpringBootTest 开启Spring Boot支持，例如加载application.yml, 同时给我们所有Spring Boot的好处。有了SpringBootTest后，SpringApplicationConfiguration被标记成Deprecated。
 - webEnvironment 允许特定的web环境，可以选择MOCK servlet，或者运行实际的HTTP服务运行在RANDOM_PORT或者DEFINED_PORT.
 - 我们可以通过@SpringBootTest的classes属性加载执行的配置。不指定classes, 测试会首先加载内部类的@Configuration， 如果失败， 它会查找首选的@SpringBootApplication类。
 

@@ -83,9 +83,8 @@ public class MsgServiceTest {
 - webEnvironment 允许特定的web环境，可以选择MOCK servlet，或者运行实际的HTTP服务运行在RANDOM_PORT或者DEFINED_PORT.
 - 我们可以通过@SpringBootTest的classes属性加载执行的配置。不指定classes, 测试会首先加载内部类的@Configuration， 如果失败， 它会查找首选的@SpringBootApplication类。
 
-
-
 # 5. 运行单元测试
+
 ## 5.1 Idea运行单元测试
 idea只需要在测试类上运行就可以了。
 

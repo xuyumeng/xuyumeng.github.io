@@ -5,10 +5,26 @@ Spring boot搞定执行应用程序所需的各种后勤工作，我们只需要
 - 命令行界面：Spring boot的可选特性，借此你只需要写代码就能完成完成整的应用程序，无需传统项目构建
 - Actuator:让你能够深入运行中的Spring Boot应用程序，一探究竟。
 
-## 自动配置
+
+# 1 文档
+
+看官方文档最靠谱: [https://spring.io/](https://spring.io), 因为各个版本会有一些不同，根据对应的版本查看对应的文档是最稳妥，最省时间的方式。
+
+官网首页有2个链接——“PROJECTS”和“GUIDES”， 这个2个链接分别对应spring每个项目的详细文档和用户指南。
+![spring io links](img/post/java/spring-study/spring-io-links.png)
+
+## 1.1 详细文档
+点击“PROJECT”, 选择对应的模块，如Spring Boot, 再点击Learn, 就可以找到对应版本的详细文档。 
+![spring io links](img/post/java/spring-study/reference-document.png)
+
+## 1.2 用户指南
+用户指南是设计都比较短小，作为入门非常方便。
+
+
+## 1.3 自动配置
 Spring Boot会为这些常见配置场景进行自动配置，如果Spring Boot在应用程序的Classpath里发现H2数据库的库，那么它就自动配置一个嵌入式H2数据库。如果在Classpath里发现JdbcTemplate， 那么它还会为你配置一个JdbcTemplate的Bean。 无需操心哪些Bean的配置，Spring Boot会做好准备，随时都能将其注入到你的Bean里。
 
-## 起步依赖
+## 1.4 起步依赖
 起步依赖其实就是特殊的Maven依赖和Gradle依赖，利用了传递依赖解析，Spring boot把常用库聚合在一起，组成了几个为特定功能而定制的依赖。
 
 假设你正在用Spring MVC构造一个REST API，并将JSON（JavaScript Object
@@ -45,11 +61,11 @@ compile "org.springframework.boot:spring-boot-starter-web"
 
 pring Boot起步依赖基本都以spring-boot-starter打头，随后是直接代表其功能的名字，比如web、test。
 
-##  命令行界面
+## 1.5 命令行界面
 
 Spring Boot CLI利用了起步依赖和自动配置，让你专注于代码本身。CLI能检测到你使用了哪些类，它知道要向Classpath中添加哪些起步依赖才能让它运转起来。一旦那些依赖出现在Classpath中，一系列自动配置就会接踵而来，Spring Boot CLI是Spring Boot的非必要组成部分。虽然它为Spring带来了惊人的力量，大大简化了开发，但也引入了一套不太常规的开发模型。要是这种开发模型与你的口味相去甚远，那也没关系，抛开CLI，你还是可以利用Spring Boot提供的其他东西。
 
-## Actuator
+## 1.6 Actuator
 提供在运行时检视应用程序内部情况的能力。安装了Actuator就能窥探应用程序的内部情况
 了，包括如下细节：
 
@@ -66,7 +82,7 @@ Actuator通过Web端点和shell界面向外界提供信息。如果要借助shel
 从本质上来说，Spring Boot就是Spring，它做了那些没有它你自己也会去做的Spring
 Bean配置。有了Spring boot，你不用再写这些样板配置了，可以专注于应用程序的逻辑。
 
-## Spring initializer
+## 1.7 Spring initializer
 Spring Initializr从本质上来说就是一个Web应用程序，它能为你生成Spring Boot项目结构。虽
 然不能生成应用程序代码，但它能为你提供一个基本的项目结构，以及一个用于构建代码的
 Maven或Gradle构建说明文件。你只需要写应用程序的代码就好了。
@@ -77,9 +93,9 @@ Spring Initializr有几种用法：
 - 通过IntelliJ IDEA使用。
 - 使用Spring Boot CLI使用。
 
-# Spring Boot项目
+# 2 Spring Boot项目
 
-## Spring 项目
+## 2.1 Spring 项目
 
 ```Java
 @SpringBootApplication                                         //开启组件扫描和自动配置
@@ -101,7 +117,7 @@ public class Application {
 
 Application还是一个启动引导类。要运行Spring Boot应用程序有几种方式，其中包含传统的WAR文件部署。但这里的main()方法让你可以在命令行里把该应用程序当作一个可执行JAR文件来运行。这里向SpringApplication.run()传递了一个Application类的引用，还有命令行参数，通过这些东西启动应用程序。
 
-# 自动配置
+# 3 自动配置
 
 Spring Boot为Gradle和Maven提供了构建插件，以便辅助构建Spring Boot项目。
 
@@ -136,7 +152,7 @@ dependencies {
 }
 ```
 
-### 起步依赖
+### 3.1 起步依赖
 起步依赖本质上是一个Maven项目对象模型（Project Object Model，POM），定义了对其他库的传递依赖，这些东西加在一起即支持某项功能。很多起步依赖的命名都暗示了它们提供的某种或某类功能。
 
 查看依赖树：
@@ -145,7 +161,7 @@ dependencies {
 gradle dependencies
 ```
 
-### 覆盖起步依赖
+### 3.2 覆盖起步依赖
 起步依赖是通过构建工具中的功能，可以选择性地覆盖它们引入的传递依赖的版本号，排除传递依赖，当然还可以为那些Spring Boot起步依赖没有涵盖的库指定依赖。
 以Spring Boot的Web起步依赖为例，它传递依赖了Jackson JSON库。如果你正在构建一个生产或消费JSON资源表述REST服务，那它会很有用。但是，要构建传统的面向人类用户的Web应用程序，你可能用不上Jackson。虽然把它加进来也不会有什么坏处，但排除掉它的传递依赖，可以为你的项目瘦身。
 如果在用Gradle，你可以这样排除传递依赖：
@@ -173,7 +189,7 @@ compile("com.fasterxml.jackson.core:jackson-databind:2.3.1")
 
 不管什么情况，在覆盖Spring Boot起步依赖引入的传递依赖时都要多加小心。虽然不同的版本放在一起也许没什么问题，但你要知道，起步依赖中各个依赖版本之间的兼容性都经过了精心的测试。应该只在特殊的情况下覆盖这些传递依赖（比如新版本修复了一个bug）。
 
-### 自动配置
+### 3.3 自动配置
 
 在向应用程序加入Spring Boot时，有个名为spring-boot-autoconfigure的JAR文件，其中包含了
 很多配置类。每个配置类都在应用程序的Classpath里，都有机会为应用程序的配置添砖加瓦。
@@ -183,9 +199,9 @@ compile("com.fasterxml.jackson.core:jackson-databind:2.3.1")
 动配置把你从样板式的配置中解放了出来。这些配置在没有Spring Boot的Spring应用程序里非常
 常见。
 
-# 自定义配置
+# 4 自定义配置
 
-## 覆盖Spring Boot自动配置
+## 4.1 覆盖Spring Boot自动配置
 覆盖自动配置很简单，就当自动配置不存在，直接显式地写一段配置。Java形式的配置意味着写一个扩展了WebSecurityConfigurerAdapter的配置类。
 
 ```java
@@ -219,7 +235,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {  //扩展对�
 }
 ```
 
-### 自动配置的面纱
+### 4.1.1 自动配置的面纱
 Spring Boot自动配置自带了很多配置类，每一个都能运用在你的应用程序里。它们都使用了Spring 4.0的**条件化配置**，可以在运行时判断这个配置是该被运用，还是该被忽略。
 
 大部分情况下，**@ConditionalOnMissingBean**注解是覆盖自动配置的关键。Spring Boot的DataSourceAutoConfiguration中定义的JdbcTemplate Bean就是一个非常简单的例子，演示了@ConditionalOnMissingBean如何工作：
@@ -236,7 +252,7 @@ jdbcTemplate()方法上添加了@Bean注解，在需要时可以配置出一个J
 
 什么情况下会存在一个JdbcOperations Bean呢？**Spring Boot的设计是加载应用级配置，随后再考虑自动配置类**。因此，如果你已经配置了一个JdbcTemplate Bean，那么在执行自动配置时就已经存在一个JdbcOperations类型的Bean了，于是忽略自动配置的JdbcTemplate Bean。
 
-## 通过属性文件外置配置
+## 4.2 通过属性文件外置配置
 为了微调一些细节，比如改改端口号和日志级别，便放弃自动配置，这是一件痛苦的事情。为了设置数据库URL，是配置一个属性简单，还是完整地声明一个数据源的Bean简单？
 Spring Boot自动配置的Bean提供了300多个用于微调的属性。当你调整设置时，只要在环境变量、Java系统属性、JNDI（Java Naming and Directory Interface）、命令行参数或者属性文件里进行指定就好了。
 
@@ -294,7 +310,7 @@ application.properties和application.yml文件能放在以下四个位置。
 同样，这个列表按照优先级排序。也就是说，/config子目录里的application.properties会覆盖应用程序Classpath里的application.properties中的相同属性。
 此外，如果你在同一优先级位置同时有application.properties和application.yml，那么application.yml里的属性会覆盖application.properties里的属性。
 
-### 通过配置文件获得
+### 4.2.1 通过配置文件获得
 
 ```yaml
 amazon:
@@ -326,3 +342,83 @@ public class AmazonProperties {
 即使自动配置合适，你仍然需要调整一些细节。Spring Boot会开启多个属性解析器，让你通过环境变量、属性文件、YAML文件等多种方式来设置属性，以此微调配置。这套基于属性的配置模型也能用于应用程序自己定义的组件，可以从外部配置源加载属性并注入到Bean里。
 
 Spring Boot还自动配置了一个简单的白标错误页，虽然它比异常跟踪信息友好一点，但在艺术性方面还有很大的提升空间。幸运的是，Spring Boot提供了好几种选项来自定义或完全替换这个白标错误页，以满足应用程序的特定风格。
+
+# 5 Actuator
+
+spring boot 2和spring boot 1.x还是有一点区别的。其实spring boot 2.1.x 和2.0.x还是有区别的。
+
+最新的spring-boot actuator的文档： https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html
+
+可以通过文档查看支持哪些endpoint，以及endpoint对应的内容。
+
+- Spring boot 1.x 默认expose 的endpoint很多
+- spring boot 2.x 默认值expose 2个endpoint—— “info”和“health”
+- spring boot 2.x 访问endpoint的URI需要加上/actuator
+- Spring boot 2.1.x启动的时候，已经不打印Map了。
+- 支持的功能不一样， spring boot 2.1.0.RELEASE支持caches， 但是2.0.1.RELEASE不支持
+
+## 5.1 使用方法
+### 5.1.1 引入actuator
+
+build.gradle中增加如下引用：
+
+```groovy
+compile "org.springframework.boot:spring-boot-starter-actuator"
+```
+
+### 5.1.2 启用方法
+缺省情况下，除了shutdown以外，所有的endpoints都是使能的，但是至少有 health 和 info 对外可以通过web的方式访问.
+
+##### 5.1.2.1 启用所有
+application.yml 中增加如下内容：
+
+```yaml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+```
+
+#### 5.1.2.1 启用指定对外可以访问的endpoint
+如果指定metrics, env, 在application中增加如下内容：
+
+```yaml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics, env
+```
+
+## 5.2 使用方法
+查看支持endpoint, 然后根据href进一步访问
+
+```json
+http://${ip}:${port}/actuator/
+```
+
+支持caches(需要spring boot 2.1.0.RELEASE)和info的返回结果，通过json格式化后的结果：
+
+```json
+{
+    "_links":{
+        "self":{
+            "href":"http://127.0.0.1:8083/actuator",
+            "templated":false
+        },
+        "caches-cache":{
+            "href":"http://127.0.0.1:8083/actuator/caches/{cache}",
+            "templated":true
+        },
+        "caches":{
+            "href":"http://127.0.0.1:8083/actuator/caches",
+            "templated":false
+        },
+        "info":{
+            "href":"http://127.0.0.1:8083/actuator/info",
+            "templated":false
+        }
+    }
+}
+```

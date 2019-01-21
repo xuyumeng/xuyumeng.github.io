@@ -1,10 +1,23 @@
+---
+layout:     post
+title:      "Spring Boot使用"  
+subtitle:   "Spring Boot的主要功能和使用"
+author:     Sun Jianjiao
+header-style: text
+catalog: true
+tags:
+
+    - Spring boot
+    - java
+
+---
+
 Spring boot搞定执行应用程序所需的各种后勤工作，我们只需要专注应用程序的代码。没有配置，没有web.xml, 没有应用服务器。
 
 - 自动配置: 针对spring应用程序常见的应用功能，Spring boot能自动提供相关配置
 - 起步依赖: 告诉Spring boot需要什么功能，它就能引入需要的库。
 - 命令行界面：Spring boot的可选特性，借此你只需要写代码就能完成完成整的应用程序，无需传统项目构建
 - Actuator:让你能够深入运行中的Spring Boot应用程序，一探究竟。
-
 
 # 1 文档
 

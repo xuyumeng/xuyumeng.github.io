@@ -257,7 +257,7 @@ JDK原生动态代理是Java原生支持的，不需要任何外部依赖，但�
 - 服务模块更简洁，只需要包含主要关注点的代码，次要关注点的代码被移到切面中了。
 
 ## 2.1 Spring 对AOP的支持
-![proxy](img/post/java/AOP/proxy.png)
+![proxy](/img/post/java/AOP/proxy.png)
 
 Spring的切面由目标对象的代理类实现，代理类处理方法的调用，执行额外的切面逻辑，并调用目标方法。
 

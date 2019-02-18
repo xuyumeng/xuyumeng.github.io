@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      "Java开发环境"  
@@ -72,9 +71,9 @@ javac
 ### 2.1.1 第一种方法：从idea里面配置Git
 
 在idea菜单栏中选择VSC->CheckOut from version Control->Git,打开如下窗口：  
-![pull](img/post/java/dev-environment/pull1.png)  
+![pull](/img/post/java/dev-environment/pull1.png)  
 点击Test按钮，测试是否可以；  
-![pull](img/post/java/dev-environment/pull2.png)  
+![pull](/img/post/java/dev-environment/pull2.png)  
 然后点击Clone按钮就可以拉取代码；  
 如果这个方法不行可以使用下面这个方法
 
@@ -84,18 +83,18 @@ javac
 输入命令 git clone + 地址；  
 这里会询问是否连接，需要输入yes;  
 然后如下图则表示拉取成功！
-![clone](img/post/java/dev-environment/clone.png)
+![clone](/img/post/java/dev-environment/clone.png)
 
 # 3 idea项目导入
 
 在idea菜单栏选择如下图：  
-![import](img/post/java/dev-environment/import0.png)
+![import](/img/post/java/dev-environment/import0.png)
 
 选中导入项目  
-![import](img/post/java/dev-environment/import1.png)
+![import](/img/post/java/dev-environment/import1.png)
 
 选择导入模型
-![import](img/post/java/dev-environment/import2.png)
+![import](/img/post/java/dev-environment/import2.png)
 依次按引导完成。  
 
 # 4 插件安装
@@ -103,7 +102,7 @@ javac
 ## 4.1 插件安装方法  
 
 在菜单栏中 file->setting中选择plugin选项，如下图：  
-![plugin](img/post/java/dev-environment/plugin.png)  
+![plugin](/img/post/java/dev-environment/plugin.png)  
 搜索出来后可以点击install，然后可以自动安装；
 
 ## 4.2 需要安装的插件
@@ -121,16 +120,16 @@ free mybatis plugin 是一个通过Ctrl与点击mapper接口方法名称快速�
 ## 5.1 idea程序目录
 
 idea的程序目录eclipse中文件目录显示的结构不一样，eclipse中文件目录中是有一个个包的形式，而idea是以文件夹的形式来呈现的项目，同学们不要以为自己哪里导入或者配置错了，上一张效果图：
-![plugin](img/post/java/dev-environment/idea-project.png)
+![plugin](/img/post/java/dev-environment/idea-project.png)
 
 ## 5.2 idea项目出错
 
 如果你的项目出了跟我一样的问题，如下图：
-![plugin](img/post/java/dev-environment/idea-error.png)
+![plugin](/img/post/java/dev-environment/idea-error.png)
 那么就是因为没有打开注解处理器，具体打开方法为alt+ctrl+s（系统setting)：
-![plugin](img/post/java/dev-environment/idea-solve.png)
+![plugin](/img/post/java/dev-environment/idea-solve.png)
 如果你没有以上问题或者已经处理了，当你编译项目为下图的时候，那么恭喜你，已经成功运行起了项目：
-![plugin](img/post/java/dev-environment/idea-nice.png)
+![plugin](/img/post/java/dev-environment/idea-nice.png)
 
 ## 5.3 idea使用gradle时出现下载不下来的问题
 
@@ -142,22 +141,22 @@ idea的程序目录eclipse中文件目录显示的结构不一样，eclipse中�
 # 6. Idea 的代码冲突解决
 
 1、出现冲突
-![image](img/post/java/dev-environment/QQ1.png)
+![image](/img/post/java/dev-environment/QQ1.png)
 
 2、远程服务git中的文件
-![image](img/post/java/dev-environment/QQ2.png)
+![image](/img/post/java/dev-environment/QQ2.png)
 
 3、先commit本地修改的文件到本地repository
-![image](img/post/java/dev-environment/QQ3.png)
+![image](/img/post/java/dev-environment/QQ3.png)
 
 4、pull源码，因为存在代码冲突，所以提示pull失败
-![image](img/post/java/dev-environment/QQ4.png)
+![image](/img/post/java/dev-environment/QQ4.png)
 
 5、点击 View them 会打开冲突文件列表
-![image](img/post/java/dev-environment/QQ5.png)
+![image](/img/post/java/dev-environment/QQ5.png)
 
 双击打开冲突的文件可以进行修改
-![image](img/post/java/dev-environment/QQ6.png)
+![image](/img/post/java/dev-environment/QQ6.png)
 
 修改完之后关掉窗口，这样冲突就解决了。然后重新pull就可以了
 
@@ -167,11 +166,11 @@ idea的程序目录eclipse中文件目录显示的结构不一样，eclipse中�
 
 1. "File" -> "New" -> "Project...", 选择Spring Initializr
 
-![image](img/post/java/dev-environment/new-project-initializr.png)
+![image](/img/post/java/dev-environment/new-project-initializr.png)
 
 2. gralde项目选择"Gradle Project"
 
-![image](img/post/java/dev-environment/new-project-gradle.png)
+![image](/img/post/java/dev-environment/new-project-gradle.png)
 根据实际情况，修改"Group"和"Artifact"。
 
 3. 然后选择依赖， 项目创建完成了
@@ -180,7 +179,7 @@ idea的程序目录eclipse中文件目录显示的结构不一样，eclipse中�
 
 1. "File" -> "New" -> "Module", 选择“Gradle”
 
-![image](img/post/java/dev-environment/new-module.png)
+![image](/img/post/java/dev-environment/new-module.png)
 
 2. 拷贝src目录到新建的module
 

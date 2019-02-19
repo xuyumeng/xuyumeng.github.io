@@ -47,8 +47,6 @@ mklink /D img ..\img
 pandoc --extract-media ./image ${src}.docx -o ${dest}.md
 ```
 
-2. Markdown转换为pdf
-
 ## 2.2 导出有侧边目录的pdf
 https://github.com/unanao/toolbox/tree/master/markdown
 

@@ -35,11 +35,19 @@ windows下的创建方法：
 mklink /D img ..\img
 ```
 
-
 # 2. 文档格式转换
-## 2.1 i5ting_toc
-将markdown 转化为带样式的html字符串，i5ting_toc是node环境下的实现工具，用于直接将markdown文件转化为网页，在浏览器打开 。
-使用方法: https://github.com/i5ting/tocmd.npm
+
+## 2.1 pandoc
+
+下载地址：https://pandoc.org/
+
+1.Word转换为Markdown格式，同时导出图片
+
+```shell
+pandoc --extract-media ./image ${src}.docx -o ${dest}.md
+```
+
+2. Markdown转换为pdf
 
 ## 2.2 导出有侧边目录的pdf
 https://github.com/unanao/toolbox/tree/master/markdown
@@ -74,5 +82,3 @@ Idea是非常好用的Java IDE。 Idea提供了一个非常好用的功能, 就�
 Mysql workbench的设计功能完全满足我的需求，免费并且跨平台，是一个不错的选择。即使不是使用的mysql，如果只是用来进行数据库的设计，那也足够了。
 
 下载地址：  https://dev.mysql.com/downloads/workbench/
-
-# 5. 

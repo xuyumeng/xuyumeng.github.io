@@ -24,11 +24,11 @@ Spring boot搞定执行应用程序所需的各种后勤工作，我们只需要
 看官方文档最靠谱: [https://spring.io/](https://spring.io), 因为各个版本会有一些不同，根据对应的版本查看对应的文档是最稳妥，最省时间的方式。
 
 官网首页有2个链接——“PROJECTS”和“GUIDES”， 这个2个链接分别对应spring每个项目的详细文档和用户指南。
-![spring io links](img/post/java/spring-study/spring-io-links.png)
+![spring io links](/img/post/java/spring-study/spring-io-links.png)
 
 ## 1.1 详细文档
 点击“PROJECT”, 选择对应的模块，如Spring Boot, 再点击Learn, 就可以找到对应版本的详细文档。 
-![spring io links](img/post/java/spring-study/reference-document.png)
+![spring io links](/img/post/java/spring-study/reference-document.png)
 
 ## 1.2 用户指南
 用户指南是设计都比较短小，作为入门非常方便。

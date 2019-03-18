@@ -512,5 +512,5 @@ public class CommandListenerTestOrder1 implements CommandLineRunner {
 
 ## 6.2 总结
 
-- 添加@Order注解的实现类优执行
+- 添加@Order注解的实现类优先执行
 - @Order()的值越小越早执行

@@ -7,7 +7,7 @@ header-style: text
 catalog: true
 tags:
 
-    - Spring boot
+    - Spring
     - java
 
 ---
@@ -435,3 +435,82 @@ http://${ip}:${port}/actuator/
     }
 }
 ```
+
+# 6. 项目启动资源初始化
+
+在项目启动的时候经常需要做一些初始化的操作，比如初始化线程池。实现CommandLineRunner 接口的bean会在所有 Spring Beans都初始化之后，SpringApplication.run()之前执行，非常适合在应用程序启动之初进行初始化工作。
+
+## 6.1 编写启动代码
+
+### 6.1.1 启动类
+
+```java
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+
+public class DemoApplication {
+
+    public static void main(String[] args) {
+        System.out.println("1: The service begin to start");
+        SpringApplication.run(DemoApplication.class, args);
+        System.out.println("3: The service has been started");
+    }
+}
+```
+
+### 6.1.2 初始化类
+
+```java
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+@Component
+public class CommandListenerTest implements CommandLineRunner {                         // 实现CommandLineRunner接口
+    public void run(String ...args) {
+        System.out.println("2: CommandLine Runner initializing");
+    }
+}
+```
+
+```java
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+@Component
+@Order(1)                                                                              // 设置执行顺序
+public class CommandListenerTestOrder1 implements CommandLineRunner {
+    public void run(String ...args) {
+        System.out.println("2: CommandLine Runner initializing -- order 1");
+    }
+}
+```
+
+### 6.1.3 输出
+
+```log
+1: The service begin to start
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.3.RELEASE)
+
+2019-03-18 19:36:57.544  INFO 14132 --- [           main] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-VFA7NRS with PID 14132 (E:\project\edgex\demo\target\classes started by Admin in E:\project\edgex\demo)
+2019-03-18 19:36:57.548  INFO 14132 --- [           main] com.example.demo.DemoApplication         : No active profile set, falling back to default profiles: default
+2019-03-18 19:36:58.016  INFO 14132 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 0.782 seconds (JVM running for 1.65)
+2: CommandLine Runner initializing -- order 1
+2: CommandLine Runner initializing -- order2
+2: CommandLine Runner initializing
+3: The service has been started
+```
+
+## 6.2 总结
+
+- 添加@Order注解的实现类优执行
+- @Order()的值越小越早执行

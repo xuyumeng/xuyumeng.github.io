@@ -103,13 +103,13 @@ public class SwaggerConfig {
 @RestController
 @Slf4j
 @RequestMapping(value = "v1/processParameter")
-@Api(value = "工艺参数", description = "用于设备工艺参数的获取")
+@Api(tags= "工艺参数管理", value = "工艺参数", description = "用于设备工艺参数的获取")
 public class ProcessParameterController {
     @RequestMapping(value = "/history/{id}/{start}/{end}", method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "获取设备历史工艺参数", notes = "用于根据设备id获取设备的历史工艺参数")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "设备ID", required = true, paramType = "query", dataType = "integer"),
-            @ApiImplicitParam(name = "start", value = "开始时间", required = true, paramType = "query", dataType = "string"),
+            @ApiImplicitParam(name = "id", value = "设备ID", required = true, paramType = "query", dataTypeClass = Integer.class),       // 使用dataTypeClass 指定类型
+            @ApiImplicitParam(name = "start", value = "开始时间", required = true, paramType = "query", dataType = "string"),             // 使用dataType 指定类型 
             @ApiImplicitParam(name = "end", value = "结束时间", required = true, paramType = "query", dataType = "string")
     })
 
@@ -153,6 +153,7 @@ public class ProcessParameterController {
 - query 普通查询参数 例如 ?query=q ,jquery ajax中data设置的值也可以，例如 {query:”q”},springMVC中不需要添加注解接收
 - header 使用@RequestHeader接收数据
 - dataType 数据类型，如果类型名称相同，请指定全路径，例如 dataType = “java.util.Date”，springfox会自动根据类型生成模型
+- dataTypeClass 数据类型，与dateType选择一个使用即可。如dataTypeClass = Long.class
 
 ### 2.4.3 @ApiResponses
 可以定制返回的错误码，如一般公司都会定制返回固定格式的消息：
@@ -182,6 +183,9 @@ Response content type会有*/*选项：
 @RequestMapping(value = "/history/{id}/{start}/{end}", method = RequestMethod.GET, produces = "application/json")
 ```
 ![specify](/img/post/java/swagger/response-type-specify.png)
+
+### 2.4.4 @API
+tags用于设置显示在swagger页面的标题，否则会显示类的名字。
 
 
 # 2.5. swagger对象注解

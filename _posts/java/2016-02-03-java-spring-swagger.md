@@ -3,7 +3,7 @@ layout:     post
 title:      "Spring boot swagger 编写文档"  
 subtitle:   "通过注解在代码中编写文档的方法"
 author:     Sun Jianjiao
-header-img: "img/bg/default-bg.jpg"
+header-img: "/img/bg/default-bg.jpg"
 catalog: true
 tags:
     - spring
@@ -174,14 +174,14 @@ RequestMapping不是swagger的注解，但是对swagger的显示有影响。
 ```
 
 Response content type会有*/*选项：
-![auto](img/post/java/swagger/response-type-auto.png)
+![auto](/img/post/java/swagger/response-type-auto.png)
 
 
 如果不想看到*/*选项，可以增加**produces = "application/json"**, 只显示指定的格式。
 ```java
 @RequestMapping(value = "/history/{id}/{start}/{end}", method = RequestMethod.GET, produces = "application/json")
 ```
-![specify](img/post/java/swagger/response-type-specify.png)
+![specify](/img/post/java/swagger/response-type-specify.png)
 
 
 # 2.5. swagger对象注解

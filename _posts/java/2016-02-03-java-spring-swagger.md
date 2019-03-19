@@ -190,7 +190,7 @@ Response content type会有*/*选项：
 
 ```
 @Data
-@ApiModel
+@ApiModel("状态信息")
 public class StateDto {
     @ApiModelProperty(value = "设备ID", required = true)
     long id;

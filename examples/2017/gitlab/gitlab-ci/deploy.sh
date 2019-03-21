@@ -1,4 +1,4 @@
-# 通过秘钥免密码的登录方法： http://www.unanao.cn/2007/07/08/linux/
+# 通过秘钥免密码的登录方法： http://www.unanao.cn/2010/10/01/linux/
 
 SRC_JAR_FILE="build/libs/*.jar"
 RUN_DIR="~/task-management/"

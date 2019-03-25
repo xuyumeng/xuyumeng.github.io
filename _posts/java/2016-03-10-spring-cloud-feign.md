@@ -8,7 +8,6 @@ header-img: "img/bg/railway-station-1363771_1280.jpg"
 catalog: true
 tags:
     - java
-    - spring
 
 ---
 

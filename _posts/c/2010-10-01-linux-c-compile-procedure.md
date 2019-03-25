@@ -8,7 +8,6 @@ catalog: true
 tags:
     - Linux
     - c
-    - 编译流程
 
 ---
 

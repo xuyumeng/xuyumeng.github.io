@@ -7,8 +7,6 @@ header-img: "/img/bg/default-bg.jpg"
 catalog: true
 tags:
     - spring
-    - 文档编写
-    - swagger
     - java
 
 ---

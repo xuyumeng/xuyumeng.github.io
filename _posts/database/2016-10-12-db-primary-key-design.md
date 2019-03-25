@@ -7,8 +7,6 @@ header-img: "img/bg/railway-station-1363771_1280.jpg"
 catalog: true
 tags:
     - 数据库
-    - Database
-    - 主键
 
 ---
 

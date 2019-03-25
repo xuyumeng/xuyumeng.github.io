@@ -9,8 +9,6 @@ tags:
 
     - Spring
     - java
-    - 依赖注入
-    - DI
 
 ---
 

@@ -6,8 +6,6 @@ author:     Sun Jianjiao
 header-style: text
 catalog: true
 tags:
-    - spring Boot
-    - 多配置文件
     - spring
     - java
 

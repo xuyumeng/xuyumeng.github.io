@@ -7,8 +7,6 @@ header-img: "img/bg/default-bg.jpg"
 catalog: true
 tags:
     - spring 
-    - redis
-    - 缓存
     - java
 
 ---

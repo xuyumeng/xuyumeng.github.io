@@ -7,8 +7,6 @@ header-style: text
 catalog: true
 tags:
     - spring
-    - async
-    - 异步调用
     - java
 
 ---

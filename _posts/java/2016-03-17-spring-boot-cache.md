@@ -7,7 +7,6 @@ header-style: text
 catalog: true
 tags:
     - spring
-    - Caffeine
     - java
 
 ---

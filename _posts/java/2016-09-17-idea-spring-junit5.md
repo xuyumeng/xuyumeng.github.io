@@ -7,9 +7,6 @@ author:     Sun Jianjiao
 header-img: "img/bg/default-bg.jpg"
 catalog: true
 tags:
-    - idea
-    - 单元测试
-    - Junit
     - spring
     - java
 

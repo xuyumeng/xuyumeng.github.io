@@ -6,7 +6,6 @@ author:     Sun Jianjiao
 header-img: "img/bg/default-bg.jpg"
 catalog: true
 tags:
-    - 桌面软件
     - 日常使用
 
 ---

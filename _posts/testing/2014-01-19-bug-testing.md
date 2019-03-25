@@ -7,8 +7,6 @@ author:     Sun Jianjiao
 header-img: "img/bg/railway-station-1363771_1280.jpg"
 catalog: true
 tags:
-    - Bug
-    - 测试
     - 项目管理
 
 ---

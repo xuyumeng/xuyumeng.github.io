@@ -538,7 +538,7 @@ dependencies {
 
 ## 7.2 使用方法
 
-双击build，修改就被加载了。
+双击classes，修改就被加载了。
 ![hot load build](/img/post/java/spring-boot/hot-load-build.png)
 
 可以设置自动编译加载，觉得还是手动触发比较好。

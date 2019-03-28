@@ -22,11 +22,11 @@ Spring boot搞定执行应用程序所需的各种后勤工作，我们只需要
 看官方文档最靠谱: [https://spring.io/](https://spring.io), 因为各个版本会有一些不同，根据对应的版本查看对应的文档是最稳妥，最省时间的方式。
 
 官网首页有2个链接——“PROJECTS”和“GUIDES”， 这个2个链接分别对应spring每个项目的详细文档和用户指南。
-![spring io links](/img/post/java/spring-study/spring-io-links.png)
+![spring io links](/img/post/java/spring-boot/spring-io-links.png)
 
 ## 1.1 详细文档
 点击“PROJECT”, 选择对应的模块，如Spring Boot, 再点击Learn, 就可以找到对应版本的详细文档。 
-![spring io links](/img/post/java/spring-study/reference-document.png)
+![spring io links](/img/post/java/spring-boot/reference-document.png)
 
 ## 1.2 用户指南
 用户指南是设计都比较短小，作为入门非常方便。
@@ -512,3 +512,33 @@ public class CommandListenerTestOrder1 implements CommandLineRunner {
 
 - 添加@Order注解的实现类优先执行
 - @Order()的值越小越早执行
+
+# 7. 热加载
+
+使用idea开发springboot项目，每次修改之后都重新关闭再开启项目，比较繁琐。可以通过热部署的方式加快开发进度。spring为开发者提供了一个名为[spring-boot-devtools](https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html)的模块来使Spring Boot应用支持热部署，提高开发者的开发效率，无需手动重启Spring Boot应用。
+
+## 7.1 添加依赖
+
+```groovy
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+dependencies {
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+}
+```
+
+不用担心热加载会部署到生产环境:
+
+- 当运行整包的应用时，Developer tools 会自动关闭。 当通过java -jar或者其他classLoader加载时，会被当作一个生产环境的应用。
+- 重新打包的项目不会包含Developer tools。
+
+## 7.2 使用方法
+
+双击build，修改就被加载了。
+![](/img/post/java/spring-boot/hot-load-build.png)
+
+可以设置自动编译加载，觉得还是手动触发比较好。

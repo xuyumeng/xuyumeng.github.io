@@ -26,13 +26,13 @@ Spring boot搞定执行应用程序所需的各种后勤工作，我们只需要
 
 ## 1.1 详细文档
 点击“PROJECT”, 选择对应的模块，如Spring Boot, 再点击Learn, 就可以找到对应版本的详细文档。 
-![spring io links](/img/post/java/spring-boot/reference-document.png)
+![spring document reference](/img/post/java/spring-boot/reference-document.png)
 
 ## 1.2 用户指南
 用户指南是设计都比较短小，作为入门非常方便。
 
-
 ## 1.3 自动配置
+
 Spring Boot会为这些常见配置场景进行自动配置，如果Spring Boot在应用程序的Classpath里发现H2数据库的库，那么它就自动配置一个嵌入式H2数据库。如果在Classpath里发现JdbcTemplate， 那么它还会为你配置一个JdbcTemplate的Bean。 无需操心哪些Bean的配置，Spring Boot会做好准备，随时都能将其注入到你的Bean里。
 
 ## 1.4 起步依赖
@@ -539,6 +539,6 @@ dependencies {
 ## 7.2 使用方法
 
 双击build，修改就被加载了。
-![](/img/post/java/spring-boot/hot-load-build.png)
+![hot load build](/img/post/java/spring-boot/hot-load-build.png)
 
 可以设置自动编译加载，觉得还是手动触发比较好。

@@ -15,6 +15,8 @@ tags:
 
 BIO即Blocking IO, 采用阻塞的方式实现。也就是一个Socket套接字需要使用一个线程来进行处理。发生建立连接，读数据，写数据的操作时，都可能会阻塞。这个模式的好处是简单，但是带来的主要问题是一个线程只能处理一个socket， 如果是Server端，支持并发的连接时，就需要更多的线程来完成这个工作。一般情况下，Server端使用线程池减轻线程创建和销毁的开销。
 
+![bio](/img/post/java/nio-bio-aio/bio.png)
+
 Client端的代码
 
 ```Java

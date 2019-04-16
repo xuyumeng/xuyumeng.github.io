@@ -46,15 +46,6 @@ public class UserServiceImpl implements UserService {
 ### 1.1.1 静态代理调用
 
 ```java
-class StaticProxiedHello implements Hello{
-    ...
-    private Hello hello = new HelloImp();
-    @Override
-    public String sayHello(String str) {
-        logger.info("You said: " + str);
-        return hello.sayHello(str);
-    }
-}
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

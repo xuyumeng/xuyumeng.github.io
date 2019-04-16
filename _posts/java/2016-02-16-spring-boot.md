@@ -358,7 +358,8 @@ Spring Boot还自动配置了一个简单的白标错误页，虽然它比异常
 
 spring boot 2和spring boot 1.x还是有一点区别的。其实spring boot 2.1.x 和2.0.x还是有区别的。
 
-最新的spring-boot actuator的文档： https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html
+[最新的spring-boot actuator的文档](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html)
+
 
 可以通过文档查看支持哪些endpoint，以及endpoint对应的内容。
 
@@ -391,7 +392,7 @@ management:
         include: "*"
 ```
 
-#### 5.1.2.1 启用指定对外可以访问的endpoint
+#### 5.1.2.2 启用指定对外可以访问的endpoint
 如果指定metrics, env, 在application中增加如下内容：
 
 ```yaml
@@ -401,6 +402,23 @@ management:
       exposure:
         include: metrics, env
 ```
+
+#### 5.1.2.3 actuator支持跨域
+
+如果起一个web服务调用actuator的url存在跨域的问题，需要配置actuator支持跨域，如果支持所有源访问，配置如下：
+
+```yaml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+```
+
+默认actualtor是禁止跨域的，只有代开cors.allowed-origins才支持跨域访问。
 
 ## 5.2 使用方法
 查看支持endpoint, 然后根据href进一步访问

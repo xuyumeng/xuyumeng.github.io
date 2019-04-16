@@ -97,7 +97,7 @@ Proxy.newProxyInstance(ClassLoader loader, Class<?>[] interfaces, InvocationHand
 
 - loader，指定代理对象的类加载器；
 - interfaces，代理对象需要实现的接口，可以同时指定多个接口；
-- andler，方法调用的实际处理者，代理对象的方法调用都会转发到这里
+- handler，方法调用的实际处理者，代理对象的方法调用都会转发到这里
 - newProxyInstance()会返回一个实现了指定接口的代理对象，对该对象的所有方法调用都会转发给InvocationHandler.invoke()方法。
 
 代理对象是在程序运行时产生的，而不是编译期；对代理对象的所有接口方法调用都会转发InvocationHandler.invoke()方法，在invoke()方法里我们可以加入任何逻辑，比如修改方法参数，加入日志功能、安全检查功能等；之后我们通过某种方式执行真正的方法体。

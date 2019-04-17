@@ -10,7 +10,7 @@ tags:
 
 ---
 
-Spring AOP是基于动态代理实现的，首先介绍jDK动态代理和CGLib动态代理，然后介绍Spring 面向切面编程的使用方法。
+Spring AOP是基于动态代理实现的，首先介绍JDK动态代理和CGLib动态代理，然后介绍Spring 面向切面编程的使用方法。
 
 # 1 动态代理
 

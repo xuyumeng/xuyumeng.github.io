@@ -102,6 +102,12 @@ Proxy.newProxyInstance(ClassLoader loader, Class<?>[] interfaces, InvocationHand
 
 代理对象是在程序运行时产生的，而不是编译期；对代理对象的所有接口方法调用都会转发InvocationHandler.invoke()方法，在invoke()方法里我们可以加入任何逻辑，比如修改方法参数，加入日志功能、安全检查功能等；之后我们通过某种方式执行真正的方法体。
 
+invoke()方法同样有三个参数：
+
+- 动态代理类的引用，通常情况下不需要它。但可以使用getClass()方法，得到proxy的Class类从而取得实例的类信息，如方法列表，annotation等。
+- 方法对象的引用，代表被动态代理类调用的方法。从中可得到方法名，参数类型，返回类型等等
+- args对象数组，代表被调用方法的参数。注意基本类型(int,long)会被装箱成对象类型(Interger, Long)
+
 ```java
 package com.example.proxy;
 

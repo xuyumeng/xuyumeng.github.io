@@ -70,7 +70,7 @@ compile "org.springframework.boot:spring-boot-starter-web"
 起步依赖引入的库的版本都是经过测试的，因此你可以完全放心，它们之间不会出现不兼容的
 情况。
 
-pring Boot起步依赖基本都以spring-boot-starter打头，随后是直接代表其功能的名字，比如web、test。
+Spring Boot起步依赖基本都以spring-boot-starter打头，随后是直接代表其功能的名字，比如web、test。
 
 ## 1.5 命令行界面
 

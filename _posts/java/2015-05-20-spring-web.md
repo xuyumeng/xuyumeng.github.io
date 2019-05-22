@@ -45,7 +45,31 @@ Settings(Preferences) -> Build, Execution, Deployment -> Build Tools -> Gradle -
 
 ## 编写Mapper
 
-### Spring方式
+是默认的方式方式，需要通过Mappers.getMapper声明INSTANCE，但是Spring的方式更简单，而且现在的项目多数是spring的，所以只介绍Spring方式的Mapper编写。
+
+```Java
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class SysUserDto {
+    String account;
+    String password;
+    String name;
+}
+```
+
+```java
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class SysUserEntity {
+    BigInteger id;
+    String account;
+    String password;
+    String name;
+}
+```
 
 ```Java
 import com.mingdutech.wms.base.dao.entity.SysUserEntity;
@@ -55,6 +79,10 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface SysUserMapper extends EntityMapper<SysUserDto, SysUserEntity> {
+public interface SysUserMapper {
+
+    SysUserEntity toEntity(SysUserDto dto);
+
+    SysUserDto toDto(SysUserEntity entity);
 }
 ```

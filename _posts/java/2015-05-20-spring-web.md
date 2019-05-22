@@ -63,6 +63,7 @@ public class SysUserDto {
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class SysUserEntity {
     BigInteger id;
     String account;

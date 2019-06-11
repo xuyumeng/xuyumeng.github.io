@@ -47,7 +47,7 @@ tags:
 相信大家看到这里，已经对Spring Cloud Config有了一个初步的认识，接下来我们就来深入了解下它吧~
 
 ### 3.1 Overview
-![Overview](images/2016-04-02/overview.png)
+![Overview](/img/post/java/config-server/overview.png)
 
 上图简要描述了一个普通Spring Cloud Config应用的场景。其中主要有以下几个组件：
 
@@ -200,7 +200,7 @@ Config Client通过Config Server提供的HTTP接口来获取数据，接口定�
 #### 3.3.2 Config Server实现细节
 
 下图展示了Config Server的配置获取接口是如何读取到配置的。
-![Overview](images/2016-04-02/config-server.png)
+![Overview](/img/post/java/config-server/config-server.png)
 
 ***基本思路***
 
@@ -225,7 +225,7 @@ Config Client通过Config Server提供的HTTP接口来获取数据，接口定�
 	* 可以理解为很多个Key - Value的属性配置
 
 在运行时的结构形如：
-![Overview](images/2016-04-02/environment.png)
+![Overview](/img/post/java/config-server/environment.png)
 
 需要注意的是，PropertySource之间是有优先级顺序的，如果有一个Key在多个property source中都存在，那么在前面的property source优先。
 
@@ -238,7 +238,7 @@ Config Client通过Config Server提供的HTTP接口来获取数据，接口定�
 #### 3.4.2 Config Client实现细节
 在有了相关背景知识后，我们来看看Spring Cloud Config Client的实现细节。
 
-![Overview](images/2016-04-02/environment-remote-source.png)
+![Overview](/img/post/java/config-server/environment-remote-source.png)
 
 如上图所示，其实原理很简单，就是在应用启动阶段，从Config Server获取配置，然后组装成PropertySource并插入到第一个（这是默认行为，也可以配置成插入到特定位置）。
 
@@ -265,7 +265,7 @@ Config Client通过Config Server提供的HTTP接口来获取数据，接口定�
 3. Config Client接收到配置更新的消息，从而感知到配置更改
 
 大致的流程如下图所示：
-![Overview](images/2016-04-02/config-update-process.png)
+![Overview](/img/post/java/config-server/config-update-process.png)
 
 #### 3.5.2 Config Client更新应用的配置
 

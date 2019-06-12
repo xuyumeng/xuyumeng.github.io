@@ -111,7 +111,7 @@ START SLAVE;
 
 # 2. 数据库迁移工具Liquidbase
 
-## 2.1 flyway 还是
+## 2.1 flyway还是Liquidbase
 比较著名的数据库迁移工具主要是flyway和liquidbase, 最开始用的flyway, 后来改成了liquidbase。
 
 Flyway的好处在于简单，而且直接书写SQL并不需要额外的学习。

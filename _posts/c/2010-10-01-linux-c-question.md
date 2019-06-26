@@ -326,12 +326,12 @@ struct B{
 
 ```c
  struct A {
- 4     char  a;
- 5     short b;
- 6     char  c;
- 7     int   d;
- 8     char  e[3];
- 9 }
+      char  a;
+      short b;
+      char  c;
+      int   d;
+      char  e[3];
+}
 ```
 
 下面来具体分析：

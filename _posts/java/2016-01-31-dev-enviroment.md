@@ -251,3 +251,43 @@ allprojects {
        └─test
 
 ```
+
+# 8. 远程调试
+
+## 8.1 开启远程调试
+
+```java
+-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=58070
+```
+
+将58080换成实际的端口， 只要端口不冲突就可以使用。
+
+### 8.2 开启jmx支持visualVM远程监控
+
+```java
+-Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=38071 -Dcom.sun.management.jmxremote.rmi.port=38071 -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=192.168.88.235
+```
+
+- 将38071换成jmx的实际端口号， 只要端口不冲突就可以使用。
+- 192.168.88.235, 换成java服务所在的服务器的地址。
+
+## 8.3 idea远程调试
+
+1. 进入运行选项配置的
+![edit config](/img/post/java/docker/edit-config.png) 
+
+2. 添加remote运行的选项
+![remote add](/img/post/java/docker/config-ip-port.png)
+
+## 8.4 Java VisualVM远程监控
+
+## 8.4.1 方法一
+
+“文件” -> "添加JMX连接"
+
+## 8.4.2 方法二
+
+1. “文件” -> "添加远程主机"
+2. 在远程主机上， 右键。“添加JMX连接”
+
+添加完成后，“远程“的下面就会出现添加的“远程主机”， 然后点开“+”，就可以看到想要监视的进程啦。

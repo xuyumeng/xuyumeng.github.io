@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "简化java微服务开发 "
+title:      "简化Java微服务开发 "
 subtitle:   "Java微服务开发环境搭建和流程优化"
 author:     Sun Jianjiao
 header-img: "img/bg/railway-station-1363771_1280.jpg"
@@ -300,7 +300,7 @@ $cat .env
 PROFILE=dev
 ```
 
-当然java需要接受PROFILE参数，如Dokerfile的启动参数:
+java需要接受PROFILE参数，如Dokerfile的启动参数:
 
 ```Dokerfile
 ENTRYPOINT /sbin/tini -- java \
@@ -308,3 +308,19 @@ ENTRYPOINT /sbin/tini -- java \
         -Dspring.profiles.active=${PROFILE} \
         -jar $APP
 ```
+
+这样配置后，只要配置正确的服务注册的地址，打开IDE就可以进行测试和调试了。
+
+# 4. 保证发布的正确性
+
+## 4.1 保证信息安全
+
+开发时，可以将spring cloud config的端口暴露出来，但是建议不要暴露了，不管是加密了还是配置了密码，都没有必要，因为这些配置都可以从git上查看。如果没有密码，没有加码，那么配置信息就直接暴露出来了，可能直接暴露了数据库的密码不是加密的，那就直接暴露了。
+
+## testing和prod的命名规则
+
+虽然建议开发的配置文件命名为applicaition-dev.example.yml, 但是强烈不建议testing和prod这样做，testing和prod直接以正确的名字命名，配置正确的配置，并且通过spring cloud config等配置中心进行管理。这样可以减少错误。
+
+## 在testing上进行测试
+
+dev环境毕竟是经过修改的，所以需要保证在testing上进行测试，保证和发布的配置完全一致。

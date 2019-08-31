@@ -560,3 +560,12 @@ dependencies {
 ![hot load build](/img/post/java/spring-boot/hot-load-build.png)
 
 可以设置自动编译加载，觉得还是手动触发比较好。
+
+# 8. 有用的spring boot 配置
+
+```yaml
+server: 
+    context-path= # Context path of the application.
+```
+
+应用的上下文路径，也可以称为项目路径，是构成url地址的一部分。

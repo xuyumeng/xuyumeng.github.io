@@ -10,17 +10,21 @@ tags:
 
 ---
 
+AOP是把切面应用到目标对象并创建新的代理对象的过程，可以在目标生命周期的多个点织入切面(aspect)。
+
+- 编译器: 切面在目标编译期织入。这种方法需要特殊的编译器，AspectJ的织入编译器就是以这种方式织入的。
+- 类加载期: 切面在目标类加载到JVM时被织入，这种方式需要特殊的类加载器(ClassLoader), 它可以在目标类被引入之前增强该目标类的字节码。AspectJ5的加载时织入(load-time weaving, LWT)就支持这种方式织入切面。
+- 运行期： 切面在应用运行的某个时刻被织。一般情况下，在织入切面时，AOP容器会为目标对象动态的创建一个代理对象。Spring AOP就是以这种方式织入切面的。
+
 Spring AOP是基于动态代理实现的，首先介绍JDK动态代理和CGLib动态代理，然后介绍Spring 面向切面编程的使用方法。
 
 # 1. 反射
 
 反射机制是Java语言提供的一种基础功能，使得我们可以在运行时直接操作类或者对象，从而灵活的操作运行时才能确定的信息。比如获取某个对象的类定义，获取类声明的属性和方法，调用方法或者构造对象，甚至可以运行时修改类定义。
 
-
 # 动态代理
 
 动态代理则是延伸出来的一种广泛应用于产品开发中的技术，很多繁琐的重复编程，都可以被动态代理机制优雅的解决。通过代理可以让调用者与实现者之间解耦。
-
 
 动态代理在Java中有着广泛的应用，比如Spring AOP。静态代理的代理关系在编译时就确定了，而动态代理的代理关系是在运行时确定的。
 
@@ -91,7 +95,6 @@ public class UserProxyFactory implements InvocationHandler {
         return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
     }
 
-    //
     @Override
     public Object invoke(Object proxy, Method method, Object args[]) throws  Throwable{
         System.out.println("add code");                     // 加入需要执行的逻辑代码
@@ -386,4 +389,96 @@ order save successfully
 Around: before save proxy: 
 query successfully: hello aop
 After select: hello aop
+```
+
+# 3. Spring AOP
+
+Spring AOP解决了分散在系统中相同功能的重复代码的编写工作。如日志，事务，安全和缓存等。
+
+如果我们的系统需要记录审计日志。
+
+- 我们的系统又只有一个服务
+- 并且不是记录所有的操作日志（如果记录所有的操作日志，filter更合适）
+
+那么AOP就可以排上用场了。
+
+## 3.1 定义一个记录操作日志的注解
+
+```Java
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target({ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface AuditLog {
+    String module() default "";
+
+    String operation() default "";
+}
+```
+
+## 3.2 定义切面
+
+```Java
+import com.mingdutech.cloudplatform.collectmanagement.core.LogService;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
+
+@Aspect
+@Component
+@Scope("prototype")
+@Slf4j
+// 增加日志的切面优先级降低
+@Order(2)
+public class AuditAspect {
+
+    @Autowired
+    LogService service;
+
+
+    @Pointcut("@annotation(com.xxx.xxx.xxx.AuditLog)")
+    public void allPublicMethodAspect() {
+    }
+
+    // 只在正常返回时记录审计日志，抛出异常不记录
+    @AfterReturning("allPublicMethodAspect()")
+    public void doAudit(JoinPoint joinPoint) throws NoSuchMethodException {
+        Object target = joinPoint.getTarget();
+        String method = joinPoint.getSignature().getName();
+        Class<?> clazz = target.getClass();
+
+        Class<?>[] parameterTypes = ((MethodSignature) joinPoint.getSignature()).getMethod().getParameterTypes();
+
+        Method m = clazz.getMethod(method, parameterTypes);
+        if (m != null && m.isAnnotationPresent(AuditLog.class)) {
+            AuditLog annotation = m.getAnnotation(AuditLog.class);
+            String module = annotation.module().getName();
+            String operation = annotation.operation().getName();
+
+            service.insertLog(module, operation);
+        }
+    }
+
+```
+
+## 3.3 使用注解记录操作日志
+
+```Java
+@AuditLog(module = "xxxx模块", operation = "删除节点")
+public void deleteByName(String name) {
+    // ... ...
+}
 ```

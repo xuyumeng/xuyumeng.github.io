@@ -10,7 +10,7 @@ tags:
 
 ---
 
-Spring boot搞定执行应用程序所需的各种后勤工作，我们只需要专注应用程序的代码。没有配置，没有web.xml, 没有应用服务器。
+Spring boot用于快速构建可以独立运行的Spring应用程序。用来执行应用程序所需的各种后勤工作，我们只需要专注应用程序的代码。没有配置，没有web.xml, 没有应用服务器。
 
 - 自动配置: 针对spring应用程序常见的应用功能，Spring boot能自动提供相关配置
 - 起步依赖: 告诉Spring boot需要什么功能，它就能引入需要的库。
@@ -164,7 +164,9 @@ dependencies {
 ```
 
 ### 3.1 起步依赖
-起步依赖本质上是一个Maven项目对象模型（Project Object Model，POM），定义了对其他库的传递依赖，这些东西加在一起即支持某项功能。很多起步依赖的命名都暗示了它们提供的某种或某类功能。
+起步依赖 **本质上是一个Maven项目对象模型（Project Object Model，POM），定义了对其他库的传递依赖**，这些东西加在一起即支持某项功能。很多起步依赖的命名都暗示了它们提供的某种或某类功能，起步依赖是面向功能的。
+
+Spring boot官方文档列出了所有起步依赖：https://docs.spring.io/spring-boot/docs/1.5.22.RELEASE/reference/html/using-boot-build-systems.html#using-boot-starter
 
 查看依赖树：
 
@@ -202,17 +204,14 @@ compile("com.fasterxml.jackson.core:jackson-databind:2.3.1")
 
 ### 3.3 自动配置
 
-在向应用程序加入Spring Boot时，有个名为spring-boot-autoconfigure的JAR文件，其中包含了
-很多配置类。每个配置类都在应用程序的Classpath里，都有机会为应用程序的配置添砖加瓦。
+在向应用程序加入Spring Boot时，有个名为spring-boot-autoconfigure的JAR文件，其中包含了很多配置类。每个配置类都在应用程序的Classpath里，都有机会为应用程序的配置添砖加瓦。
 
-通过Spring Boot的起步依赖和自动配置，你可以更加快速、便捷地开发Spring应用程序。起
-步依赖帮助你专注于应用程序需要的功能类型，而非提供该功能的具体库和版本。与此同时，自
-动配置把你从样板式的配置中解放了出来。这些配置在没有Spring Boot的Spring应用程序里非常
-常见。
+通过Spring Boot的起步依赖和自动配置，你可以更加快速、便捷地开发Spring应用程序。起步依赖帮助你专注于应用程序需要的功能类型，而非提供该功能的具体库和版本。与此同时，自动配置把你从样板式的配置中解放了出来。这些配置在没有Spring Boot的Spring应用程序里非常常见。
 
 # 4 自定义配置
 
 ## 4.1 覆盖Spring Boot自动配置
+
 覆盖自动配置很简单，就当自动配置不存在，直接显式地写一段配置。Java形式的配置意味着写一个扩展了WebSecurityConfigurerAdapter的配置类。
 
 ```java
@@ -247,21 +246,56 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {  //扩展对�
 ```
 
 ### 4.1.1 自动配置的面纱
+
+#### 4.1.1.1 Spring boot是怎么加载自动配置的
+
+Spring boot就是通过 *@EnableAutoConfiguration*加载自动配置的，我们的程序没有添加 *@EnableAutoConfiguration*, 因为 *@SpringBootApplication*包含了这个注解。
+
+*@EnableAutoConfiguration* 中执行了 *@Import(EnableAutoConfigurationImportSelector.class)* （这个是1.5.22 的spring boot， 2.x已经使用AutoConfigurationImportSelector.class）。
+
+AutoConfigurationImportSelector中加载META-INF/srping.factories提供的自动配置类。
+
+#### 4.1.1.2 如何生效需要的配置
+
 Spring Boot自动配置自带了很多配置类，每一个都能运用在你的应用程序里。它们都使用了Spring 4.0的**条件化配置**，可以在运行时判断这个配置是该被运用，还是该被忽略。
 
-大部分情况下，**@ConditionalOnMissingBean**注解是覆盖自动配置的关键。Spring Boot的DataSourceAutoConfiguration中定义的JdbcTemplate Bean就是一个非常简单的例子，演示了@ConditionalOnMissingBean如何工作：
+大部分情况下，**@Conditional***注解是覆盖自动配置的关键。如我们spring boot1.5.22中的默认Datasrouce
 
 ```java
-@Bean
-@ConditionalOnMissingBean(JdbcOperations.class)
-public JdbcTemplate jdbcTemplate() {
-    return new JdbcTemplate(this.dataSource);
+@Configuration
+@ConditionalOnProperty(prefix = "spring.datasource", name = "jmx-enabled")
+@ConditionalOnClass(name = "org.apache.tomcat.jdbc.pool.DataSourceProxy")
+@Conditional(DataSourceAutoConfiguration.DataSourceAvailableCondition.class)
+@ConditionalOnMissingBean(name = "dataSourceMBean")
+protected static class TomcatDataSourceJmxConfiguration {
+
+    @Bean
+    public Object dataSourceMBean(DataSource dataSource) {
+        if (dataSource instanceof DataSourceProxy) {
+            try {
+                return ((DataSourceProxy) dataSource).createPool().getJmxPool();
+            }
+            catch (SQLException ex) {
+                logger.warn("Cannot expose DataSource to JMX (could not connect)");
+            }
+        }
+        return null;
+    }
+
 }
 ```
 
-jdbcTemplate()方法上添加了@Bean注解，在需要时可以配置出一个JdbcTemplate Bean。但它上面还加了@ConditionalOnMissingBean注解，要求当前不存在JdbcOperations类型（JdbcTemplate实现了该接口）的Bean时才生效。如果当前已经有一个JdbcOperationsBean了，条件即不满足，不会执行jdbcTemplate()方法。
+dataSourceMBean()方法上添加了@Bean注解，在需要时可以配置出一个dataSourceMBean Bean。
+但它上面还加了多个注解：
 
-什么情况下会存在一个JdbcOperations Bean呢？**Spring Boot的设计是加载应用级配置，随后再考虑自动配置类**。因此，如果你已经配置了一个JdbcTemplate Bean，那么在执行自动配置时就已经存在一个JdbcOperations类型的Bean了，于是忽略自动配置的JdbcTemplate Bean。
+- @ConditionalOnProperty， 要求配置文件里面有spring.datasource
+- @ConditionalOnClass, 存在org.apache.tomcat.jdbc.pool.DataSourceProxy类
+- @Conditional, 满足DataSourceAvailableCondition的判断条件
+- @ConditionalOnMissingBean注解，要求当前不存在dataSourceMBean的Bean时才生效。
+
+如果有一个条件不满足，不会执行创建Bean了。
+
+@ConditionalOnMissingBean的判断优先级是什么呢？**Spring Boot的设计是先加载应用级配置，随后再考虑自动配置类**。因此，如果你已经配置了一个JdbcTemplate Bean，那么在执行自动配置时就已经存在一个JdbcOperations类型的Bean了，于是忽略自动配置的JdbcTemplate Bean。
 
 ## 4.2 通过属性文件外置配置
 为了微调一些细节，比如改改端口号和日志级别，便放弃自动配置，这是一件痛苦的事情。为了设置数据库URL，是配置一个属性简单，还是完整地声明一个数据源的Bean简单？

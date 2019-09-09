@@ -13,8 +13,7 @@ future: true
 
 # SNS settings
 RSS: false
-github_username:    unanao
-linkedin_username: unanao
+github_username: unanao
 weibo_username: unanao
 
 

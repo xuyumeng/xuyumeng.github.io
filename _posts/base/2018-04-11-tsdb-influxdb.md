@@ -1,3 +1,15 @@
+---
+layout:     post
+title:      "如何高性能的使用Influxdb"
+subtitle:   "通过influxdb的概念，数据建模，性能，大数据量和硬件进行说明"
+author:     Sun Jianjiao
+header-img: "/img/bg/railway-station-1363771_1280.jpg"
+catalog: true
+tags:
+    - 数据库
+
+---
+
 # 1 基本概念
 
 1.Measurement：从原理上讲更像SQL中表的概念。这和其他很多时序数据库有些不同，其他时序数据库中Measurement可能与Metric等同，类似于下文讲到的Field，这点需要注意。

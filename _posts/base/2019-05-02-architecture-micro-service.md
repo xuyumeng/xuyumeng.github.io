@@ -60,7 +60,7 @@ tags:
 
 规范用于指导实施细节，从而实现这些原则。如编码规范，日志规范，HTTP/REST规范等。这些规范一般比较偏技术层面，所以改变的频率会高于原则。
 
-![principleconvention](img/post/architecture/micro-service/principle-convention.jpg)
+![principleconvention](/img/post/architecture/micro-service/principle-convention.jpg)
 
 ## 2.4 一个好服务应该有的属性
 
@@ -150,7 +150,7 @@ Evans使用细胞作为比喻：“细胞之所以会存在，是因为细胞膜
 对于一般规模的组织来说，如果某个软件非常特殊，并且它是你的**战略性资产的话，那就自己构建**；如果不是这么特别的话，那就购买。
 
 没有什么是不能通过封装一层解决的：
-![apperanceservice](img/post/architecture/micro-service/apperance-service.png)
+![apperanceservice](/img/post/architecture/micro-service/apperance-service.png)
 
 由于多个其他的系统需要项目的信息，所以我们就创建了项目服务。这个服务将项目以RESTful资源的形式暴露出来，外部系统可以把它们的集成点迁移到这个新的、易用的服务上来，而这个项目服务仅仅是隐藏了底层的集成细节而已。
 

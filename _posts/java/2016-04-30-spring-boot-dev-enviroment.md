@@ -25,19 +25,15 @@ apt get install openjdk-8-jdk
 
 windows安装麻烦一点。
 
-## 1.2.2.1 JKD下载
+- 开发环境需要使用JDK, 从 [下载地址](https://www.oracle.com/technetwork/java/javase/downloads/index.html)下载对应的JDK就可以啦。
 
-开发环境需要使用JDK, 从 [下载地址](https://www.oracle.com/technetwork/java/javase/downloads/index.html)下载对应的JDK就可以啦。
-
-## 1.2.2.2 JDK安装
-
-安装过程中可以自定义安装目录等信息，不定义使用缺省配置一路下一步就可以了。例如我们选择安装目录为：
+- 安装过程中可以自定义安装目录等信息，不定义使用缺省配置一路下一步就可以了。例如我们选择安装目录为：
 
 ``` shell
 D:\java\jdk1.8.0_08
 ```
 
-### 1.2.2.3 配置环境变量
+- 配置环境变量
 
 1. 右击“我的电脑”，点击“属性”
 2. 选择“高级”选项卡，点击“环境变量”
@@ -291,3 +287,31 @@ allprojects {
 2. 在远程主机上， 右键。“添加JMX连接”
 
 添加完成后，“远程“的下面就会出现添加的“远程主机”， 然后点开“+”，就可以看到想要监视的进程啦。
+
+# 9 问题解决
+
+## 9.1 Command line is too long
+
+```log
+Command line is too long. Shorten command line for Test1.test or also for JUnit default configuration. 
+```
+
+- 方法1：
+选择“Edit Configurations”， 将对应的单元测试的command line修改为“JAR mainfest”
+![manifest](/img/post/java/junit/command-too-long.png)
+
+- 方法2：
+可以添加gradle的[ManifestClasspath](https://plugins.gradle.org/plugin/ua.eshepelyuk.ManifestClasspath)插件解决这个问题：
+
+```groovy
+buildscript {
+    dependencies {
+        classpath "gradle.plugin.ua.eshepelyuk:ManifestClasspath:1.0.0"
+    }
+
+}
+
+apply plugin: "ua.eshepelyuk.ManifestClasspath"
+```
+
+[官方issue](https://github.com/gradle/gradle/issues/1989)说gradle 6会解决这个问题

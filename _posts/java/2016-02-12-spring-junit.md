@@ -105,12 +105,5 @@ sourceSets {
     }
 }
 ```
-只有"srcDir"指定目录，如果设置srcDir="src/test", 那么gradle会从 “$projectdir/src/test/com/…”寻找测试代码。
 
-# 5. 问题解决
-## 5.1 Command line is too long
-```
-Error running 'Test1.test': Command line is too long. Shorten command line for Test1.test or also for JUnit default configuration. 
-```
-选择“Edit Configurations”， 将对应的单元测试的command line修改为“JAR mainfest”
-![manifest](img/post/java/junit/command-too-long.png)
+只有"srcDir"指定目录，如果设置srcDir="src/test", 那么gradle会从 “$projectdir/src/test/com/…”寻找测试代码。

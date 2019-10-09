@@ -129,7 +129,7 @@ public class CorsConfig {
 
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("http://${ip}:${port}");       //允许指定域名使用
+        corsConfiguration.addAllowedOrigin("http://${ip}:${port}");       //允许指定域名使用，也可以设置为*，允许所有地址，但是不安全
         corsConfiguration.addAllowedHeader("*");                          //允许任何头
         corsConfiguration.addAllowedMethod("*");                          //允许任何方法
         corsConfiguration.setAllowCredentials(true);

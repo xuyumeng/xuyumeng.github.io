@@ -6,7 +6,7 @@ author:     Sun Jianjiao
 header-img: "img/bg/default-bg.jpg"
 catalog: true
 tags:
-    - architecture
+    - open source
 
 ---
 

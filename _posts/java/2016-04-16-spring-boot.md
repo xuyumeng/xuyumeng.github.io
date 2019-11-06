@@ -298,8 +298,11 @@ dataSourceMBean()方法上添加了@Bean注解，在需要时可以配置出一�
 @ConditionalOnMissingBean的判断优先级是什么呢？**Spring Boot的设计是先加载应用级配置，随后再考虑自动配置类**。因此，如果你已经配置了一个JdbcTemplate Bean，那么在执行自动配置时就已经存在一个JdbcOperations类型的Bean了，于是忽略自动配置的JdbcTemplate Bean。
 
 ## 4.2 通过属性文件外置配置
+
 为了微调一些细节，比如改改端口号和日志级别，便放弃自动配置，这是一件痛苦的事情。为了设置数据库URL，是配置一个属性简单，还是完整地声明一个数据源的Bean简单？
 Spring Boot自动配置的Bean提供了300多个用于微调的属性。当你调整设置时，只要在环境变量、Java系统属性、JNDI（Java Naming and Directory Interface）、命令行参数或者属性文件里进行指定就好了。
+
+### 4.2.1 命令行参数
 
 在命令行里运行阅读列表应用程序时，Spring Boot有一个ascii-art Banner。如果你想禁用这个Banner，可以将
 spring.main.show-banner属性设置为false。有几种实现方式，其中之一就是在运行应用程
@@ -309,19 +312,42 @@ spring.main.show-banner属性设置为false。有几种实现方式，其中之�
 java -jar readinglist-0.0.1-SNAPSHOT.jar --spring.main.show-banner=false
 ```
 
-另一种方式是创建一个名为application.properties的文件，包含如下内容：
+### 4.2.2 配置文件
+
+另一种方式是创建一个名为application.properties或者bootstrap.properityes的文件，包含如下内容：
 
 ```property
 spring.main.show-banner=false
 ```
 
-或者，如果你喜欢的话，也可以创建名为application.yml的YAML文件，内容如下：
+或者，如果你喜欢的话，也可以创建名为application.yml或者或者bootstrap.yml的YAML文件，内容如下：
 
 ```yaml
 spring:
     main:
         show-banner: false
 ```
+
+application.properties和application.yml文件能放在以下四个位置。
+
+- 外置，在相对于应用程序运行目录的/config子目录里。
+- 外置，在应用程序运行的目录里。
+- 内置，在config包内。
+- 内置，在Classpath根目录。
+
+同样，这个列表按照优先级排序。也就是说，/config子目录里的application.properties会覆盖应用程序Classpath里的application.properties中的相同属性。
+此外，如果你在同一优先级位置同时有application.properties和application.yml，那么application.yml里的属性会覆盖application.properties里的属性。
+
+applicaton.yml和bootstrap.yml的区别：
+
+Spring Cloud 构建于 Spring Boot 之上，在 Spring Boot 中有两种上下文，一种是 bootstrap, 另外一种是 application, **bootstrap 是应用程序的父上下文**，也就是说 bootstrap 加载优先于 applicaton。bootstrap 主要用于从**额外的资源**来加载配置信息，还可以在本地外部配置文件中解密属性。这两个上下文共用一个环境，它是任何Spring应用程序的外部属性的来源。bootstrap 里面的属性会优先加载，它们默认也**不能被本地相同配置覆盖**。
+
+bootstrap.yml的典型应用场景：
+
+- 使用Spring Cloud Config Server, 需要将spring.application.name 和spring.cloud.config.server.git.uri放再bootstrap.yml中
+- 一些加密/解密的信息
+
+### 4.2.3 设置环境变量
 
 还可以将属性设置为环境变量。举例来说，如果你用的是bash或者zsh，可以用export命令：
 
@@ -330,6 +356,8 @@ export spring_main_show_banner=false
 ```
 
 请注意，这里用的是下划线而不是点和横杠，这是对环境变量名称的要求。
+
+### 4.2.4 优先级顺序
 
 实际上，Spring Boot应用程序有多种设置途径。Spring Boot能从多种属性源获得属性，包括
 如下几处。
@@ -346,16 +374,7 @@ export spring_main_show_banner=false
 
 这个列表按照优先级排序，也就是说，任何在高优先级属性源里设置的属性都会覆盖低优先级的相同属性。例如，命令行参数会覆盖其他属性源里的属性。
 
-application.properties和application.yml文件能放在以下四个位置。
-- 外置，在相对于应用程序运行目录的/config子目录里。
-- 外置，在应用程序运行的目录里。
-- 内置，在config包内。
-- 内置，在Classpath根目录。
-
-同样，这个列表按照优先级排序。也就是说，/config子目录里的application.properties会覆盖应用程序Classpath里的application.properties中的相同属性。
-此外，如果你在同一优先级位置同时有application.properties和application.yml，那么application.yml里的属性会覆盖application.properties里的属性。
-
-### 4.2.1 通过配置文件获得
+### 4.2.5 获取配置的方法
 
 ```yaml
 amazon:
@@ -385,7 +404,7 @@ public class AmazonProperties {
 当自动配置无法满足需求时，Spring Boot允许你覆盖并微调它提供的配置。覆盖自动配置其实很简单，就是显式地编写那些没有Spring Boot时你要做的Spring配置。Spring Boot的自动配置被设计为优先使用应用程序提供的配置，然后才轮到自己的自动配置。
 
 即使自动配置合适，你仍然需要调整一些细节。Spring Boot会开启多个属性解析器，让你通过环境变量、属性文件、YAML文件等多种方式来设置属性，以此微调配置。这套基于属性的配置模型也能用于应用程序自己定义的组件，可以从外部配置源加载属性并注入到Bean里。
-
+c
 Spring Boot还自动配置了一个简单的白标错误页，虽然它比异常跟踪信息友好一点，但在艺术性方面还有很大的提升空间。幸运的是，Spring Boot提供了好几种选项来自定义或完全替换这个白标错误页，以满足应用程序的特定风格。
 
 # 5 Actuator
@@ -606,3 +625,93 @@ server:
 
 应用的上下文路径，也可以称为项目路径，是构成url地址的一部分。
 配置server.context-path时，项目的url会增加在port后面增加配置的context-path(localhost:port/*${context-path}*/mqcp/convert )
+
+
+# 9 spring boot支持多配置文件
+
+在spring boot的开发中,会有不同的配置,例如日志打印,数据库连接等,开发,测试,生产每个环境可能配置都不一致, spring boot支持通过不同的profile来配置不同环境的配置。
+
+**推荐方案9.2 使用多个yml配置文件进行配置属性文件。**
+
+
+## 9.1 方案1 —— 通过不同的profile来配置属性文件:
+
+application.yml配置如下：
+
+```Yaml
+# 公共配置
+spring:
+  profiles:
+    active: dev
+
+# dev 环境配置
+---
+spring:
+    profiles: "dev"
+    datasource:
+        url: jdbc:sqlserver://127.0.0.1:1433;DatabaseName=dev_db
+        username: sa
+        password: db-password
+
+# 测试环境配置
+---
+spring:
+    profiles: "test"
+    datasource:
+        url: jdbc:sqlserver://192.168.1.2:1433; DatabaseName=test_db
+        username: sa
+        password: db-password
+
+# 生产环境配置
+---
+spring:
+    profiles: "production"
+    datasource:
+        url: jdbc:sqlserver://192.168.12.104:1433;DatabaseName=production_db
+        username: sa
+        password: db-password
+
+```
+
+非常简单的配置,application.yml文件分为四部分,使用一组(---)来作为分隔符,第一部分,为通用配置部分,表示三个环境都通用的属性
+
+后面三段分别为,开发,测试,生产,都用spring.profiles指定了一个值(开发为dev,测试为test,生产为pro),这个值表示该段配置应该用在哪个profile里面,
+
+上面的XXX是每个环境的 spring.profiles对应的value,通过这个,可以控制本地启动调用哪个环境的配置文件,例如:
+
+``` Yaml
+spring:
+    profiles:
+        active: dev
+```
+
+加载的,就是开发环境的属性,如果dev换成test,则会加载测试环境的属性,生产也是如此,
+
+PS:如果spring.profiles.active没有指定值,那么只会使用没有指定spring.profiles文件的值,也就是只会加载通用的配置
+
+如果是部署到服务器的话,我们正常打成jar包,发布是时候,采用:
+
+--spring.profiles.active=test或者pro 来控制加载哪个环境的配置,完整命令如下:
+
+```Shell
+java -jar xxxxx.jar --spring.profiles.active=test  表示加载测试环境的配置
+
+java -jar xxxxx.jar --spring.profiles.active=pro  表示加载生产环境的配置
+```
+
+## 1.2 使用多个yml配置文件进行配置属性文件:
+
+如果是使用多个yml来配置属性,我们则可以这么使用,通过与配置文件相同的明明规范,创建application-{profile}.yml文件,将于环境无关的属性,放置到application.yml文件里面,可以通过这种形式来配置多个环境的属性文件,在application.yml文件里面指定spring.profiles.active=profiles的值,来加载不同环境的配置,如果不指定,则默认只使用application.yml属性文件,不会加载其他的profiles的配置
+
+application.yml 设置缺省为
+
+```Yaml
+spring:
+    profiles:
+        active: "dev"
+```
+
+## 1.3 idea 选择启动的配置文件
+
+![set-profile](/img/post/spring/spring-boot-multi-conifg-set-profile.png)
+

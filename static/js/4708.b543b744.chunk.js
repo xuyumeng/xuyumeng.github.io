@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkour_space=self.webpackChunkour_space||[]).push([[4708],{4708:(a,e,s)=>{s.d(e,{loadEasingQuadPlugin:()=>n});var u=s(4409);async function n(){(0,u.nL)("ease-in-quad",(a=>a**2)),(0,u.nL)("ease-out-quad",(a=>1-(1-a)**2)),(0,u.nL)("ease-in-out-quad",(a=>a<.5?2*a**2:1-(-2*a+2)**2/2)),await Promise.resolve()}}}]);
+//# sourceMappingURL=4708.b543b744.chunk.js.map

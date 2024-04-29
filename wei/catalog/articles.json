@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Social Dilemma",
+    "description": "Explain",
+    "icon": "wei/images/SWSH33.png",
+    "link": "article/swsh"
+  },
+  {
+    "id": 2,
+    "title": "Social Network",
+    "description": "Explain",
+    "icon": "wei/images/grid-hp.png",
+    "link": "article/gw-strain-on-test-masses"
+  }
+]
